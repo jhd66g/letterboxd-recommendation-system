@@ -28,7 +28,12 @@ from datetime import datetime
 
 # ====== CONFIGURATION ======
 # You'll need to get your own TMDB Bearer Token from https://www.themoviedb.org/settings/api
-BEARER_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MjViZDI1OGY1ZjQ0ZjAyM2NjNjRjMTg5NDNmZjI4YyIsIm5iZiI6MTcyMzA2NDU0Mi4zNjQ0MDUsInN1YiI6IjY2N2RkMmU5NTljYTUwNzA1OTMyNjQ3ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ubYs4zAhZ97A1YtnsR-Ku4oIu1NMokbaVZvJ77lXZQA"
+# Set the TMDB_BEARER_TOKEN environment variable
+BEARER_TOKEN = os.getenv("TMDB_BEARER_TOKEN")
+if not BEARER_TOKEN:
+    print("Error: TMDB_BEARER_TOKEN environment variable is not set.")
+    print("Please set it with: export TMDB_BEARER_TOKEN='your_token_here'")
+    sys.exit(1)
 
 MAX_WORKERS = 10     # Number of concurrent API requests
 RETRY_DELAY = 1      # Seconds to wait on rate limit
