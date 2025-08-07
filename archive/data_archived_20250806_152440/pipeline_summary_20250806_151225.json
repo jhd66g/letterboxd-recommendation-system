@@ -1,0 +1,24 @@
+{
+    "pipeline_run": {
+        "timestamp": "20250806_151225",
+        "target_users": 20,
+        "execution_time": "Wed Aug  6 15:19:35 PDT 2025",
+        "output_directory": "data_20_20250806_151225"
+    },
+    "data_collected": {
+        "users": 20,
+        "raw_reviews": 51983,
+        "unique_movies": 3412,
+        "movies_with_metadata": 3412,
+        "final_reviews": 30586,
+        "final_movies": 3366
+    },
+    "files_created": {
+        "users": "letterboxd_users_20250806_151225.csv",
+        "reviews": "letterboxd_reviews_20250806_151225.csv",
+        "unique_movies": "unique_movies_20250806_151225.csv",
+        "metadata": "movie_metadata_20250806_151225.csv",
+        "final_reviews": "final_reviews_20250806_151225.csv",
+        "final_metadata": "final_metadata_20250806_151225.csv"
+    }
+}

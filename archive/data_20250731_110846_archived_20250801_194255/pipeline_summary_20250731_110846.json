@@ -1,0 +1,16 @@
+{
+  "timestamp": "20250731_110846",
+  "data_folder": "data_20250731_110846",
+  "total_reviews": 1149929,
+  "unique_users": 494,
+  "unique_movies": 30968,
+  "avg_rating": 6.610549868731026,
+  "rating_std": 2.1155648639199294,
+  "pipeline_params": {
+    "total_users_scraped": 500,
+    "unlimited_reviews_per_user": true,
+    "max_workers": 20,
+    "min_user_reviews": 10,
+    "min_movie_reviews": 5
+  }
+}

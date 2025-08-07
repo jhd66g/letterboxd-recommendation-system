@@ -1,556 +1,417 @@
 #!/usr/bin/env python3
 """
-Letterboxd Hybrid Recommendation Engine
+Recommendation Engine
 
-A clean, simple implementation that combines collaborative and content-based filtering.
+A production-grade pipeline that assembles data, trains a hybrid LightFM model,
+and serves movie recommendations using collaborative filtering and content-based features.
+
+Usage:
+    python recommendation_engine.py --mode hybrid --train
+    python recommendation_engine.py --mode cf_only --evaluate
+    python recommendation_engine.py --recommend username --top_n 25
 """
 
-import os
-import sys
 import pandas as pd
 import numpy as np
-import subprocess
+import scipy.sparse as sp
+from lightfm import LightFM
+from lightfm.evaluation import precision_at_k, recall_at_k, auc_score
+import pickle
+import argparse
+import logging
+from pathlib import Path
 from datetime import datetime
-from typing import Optional
-import warnings
-warnings.filterwarnings('ignore', category=FutureWarning)
+import json
+from sklearn.model_selection import train_test_split
 
-# ML libraries
-from sklearn.decomposition import TruncatedSVD
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.model_selection import cross_val_score, KFold
-from sklearn.linear_model import Ridge
-from sklearn.metrics import mean_squared_error
-from scipy.sparse import csr_matrix, hstack
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
-class LetterboxdRecommendationEngine:
-    """Simple hybrid recommendation engine for Letterboxd users"""
+class RecommendationEngine:
+    """Hybrid movie recommendation engine using LightFM."""
     
-    def __init__(self, alpha=0.7, num_recommendations=25, num_components=25, 
-                 l2_reg=1.0, cv_folds=5, optimize_alpha=True):
-        self.alpha = alpha
-        self.num_recommendations = num_recommendations
-        self.num_components = num_components
-        self.l2_reg = l2_reg
-        self.cv_folds = cv_folds
-        self.optimize_alpha = optimize_alpha
+    def __init__(self, cf_weight=2.0, cb_weight=0.5):
+        """Initialize the recommendation engine.
         
-        # Directories
-        self.base_dir = os.path.dirname(os.path.abspath(__file__))
-        self.data_dir = os.path.join(self.base_dir, 'data')
-        self.scrapers_dir = os.path.join(self.base_dir, 'scrapers')
-        self.output_dir = os.path.join(self.base_dir, 'output')
-        
-        # Data files
-        self.reviews_file = os.path.join(self.data_dir, 'cleaned_reviews_v5.csv')
-        self.metadata_file = os.path.join(self.data_dir, 'cleaned_movie_metadata_v5.csv')
-        
-        # Model components
+        Args:
+            cf_weight: Weight for collaborative filtering (item_id) features
+            cb_weight: Weight for content-based (metadata) features
+        """
+        self.cf_weight = cf_weight
+        self.cb_weight = cb_weight
         self.model = None
-        self.reviews_df = None
+        self.user_mapping = {}
+        self.item_mapping = {}
+        self.reverse_user_mapping = {}
+        self.reverse_item_mapping = {}
+        self.item_features = None
+        self.interactions = None
         self.metadata_df = None
-        self.content_model = None
-        self.optimal_alpha = None
-        self.optimal_l2_reg = None
         
-    def load_data(self):
-        """Load cleaned data"""
-        try:
-            print("📖 Loading data...")
-            self.reviews_df = pd.read_csv(self.reviews_file)
-            self.metadata_df = pd.read_csv(self.metadata_file)
-            
-            print(f"✅ Loaded {len(self.reviews_df)} reviews and {len(self.metadata_df)} movies")
-            return True
-        except Exception as e:
-            print(f"❌ Error loading data: {e}")
-            return False
-    
-    def scrape_user_data(self, username: str) -> bool:
-        """Scrape user data and integrate into reviews dataset"""
-        try:
-            print(f"🔍 Scraping data for {username}...")
-            
-            # Run scraper
-            scraper_path = os.path.join(self.scrapers_dir, 'rating_scraper_pro.py')
-            output_file = os.path.join(self.data_dir, f'{username}_ratings.csv')
-            
-            result = subprocess.run([
-                sys.executable, scraper_path, username, '--output', output_file
-            ], capture_output=True, text=True, timeout=600)
-            
-            if result.returncode != 0:
-                print(f"❌ Scraper failed: {result.stderr}")
-                return False
-            
-            # Load scraped data
-            user_data = pd.read_csv(output_file)
-            print(f"✅ Scraped {len(user_data)} ratings for {username}")
-            
-            # Clean and format to match reviews dataset
-            user_data_cleaned = self._clean_user_data(user_data, username)
-            
-            # Remove existing data for this user
-            self.reviews_df = self.reviews_df[self.reviews_df['username'] != username]
-            
-            # Add new data
-            self.reviews_df = pd.concat([self.reviews_df, user_data_cleaned], ignore_index=True)
-            
-            # Clean up temp file
-            os.remove(output_file)
-            
-            print(f"✅ Integrated {len(user_data_cleaned)} ratings for {username}")
-            return True
-            
-        except Exception as e:
-            print(f"❌ Error scraping user data: {e}")
-            return False
-    
-    def _clean_user_data(self, raw_data: pd.DataFrame, username: str) -> pd.DataFrame:
-        """Clean scraped user data to match reviews dataset format"""
-        cleaned_data = []
+    def load_data(self, reviews_file=None, features_file=None):
+        """Load preprocessed data from CSV files.
         
-        for _, row in raw_data.iterrows():
-            # Match with metadata using title and year
-            title = row['title']
-            year = row['year']
-            
-            # Try to find matching movie in metadata
-            movie_match = self.metadata_df[
-                (self.metadata_df['title'] == title) & 
-                (self.metadata_df['release_year'] == year)
-            ]
-            
-            # If no exact match, try just title
-            if len(movie_match) == 0:
-                movie_match = self.metadata_df[self.metadata_df['title'] == title]
-            
-            if len(movie_match) > 0:
-                # Use the first match
-                movie_info = movie_match.iloc[0]
-                
-                # Extract rating or mark as implicit feedback
-                rating = row.get('rating', 0)
-                has_rating = rating > 0
-                
-                cleaned_data.append({
-                    'username': username,
-                    'tmdb_id': movie_info['tmdb_id'],
-                    'title': title,
-                    'rating': rating if has_rating else 0,
-                    'has_rating': has_rating
-                })
+        Args:
+            reviews_file: Path to final_reviews CSV (username, tmdb_id, rating)
+            features_file: Path to final_features CSV (tmdb_id + feature columns)
+        """
+        logger.info("🔄 Loading preprocessed data...")
         
-        return pd.DataFrame(cleaned_data)
-    
-    def train_model(self):
-        """Train the hybrid recommendation model"""
-        try:
-            print("🚀 Training hybrid model...")
+        # Find latest data files if not specified
+        if reviews_file is None:
+            reviews_files = list(Path(".").glob("**/final_reviews_*.csv"))
+            if not reviews_files:
+                raise FileNotFoundError("No final_reviews CSV files found")
+            reviews_file = max(reviews_files, key=lambda p: p.stat().st_mtime)
             
-            # Prepare collaborative filtering data
-            print("📊 Preparing collaborative filtering...")
+        if features_file is None:
+            features_files = list(Path(".").glob("**/final_features_*.csv"))
+            if not features_files:
+                raise FileNotFoundError("No final_features CSV files found")
+            features_file = max(features_files, key=lambda p: p.stat().st_mtime)
             
-            # Create user-movie interaction matrix
-            users = self.reviews_df['username'].unique()
-            movies = self.reviews_df['tmdb_id'].unique()
+        logger.info(f"   Reviews: {reviews_file}")
+        logger.info(f"   Features: {features_file}")
+        
+        # Load reviews data (only username, tmdb_id, rating columns)
+        reviews_df = pd.read_csv(reviews_file, usecols=['username', 'tmdb_id', 'rating'])
+        reviews_df = reviews_df.dropna(subset=['username', 'tmdb_id', 'rating'])
+        
+        # Load features data  
+        features_df = pd.read_csv(features_file)
+        
+        # Create user and item mappings
+        unique_users = reviews_df['username'].unique()
+        unique_items = reviews_df['tmdb_id'].unique()
+        
+        self.user_mapping = {user: idx for idx, user in enumerate(unique_users)}
+        self.item_mapping = {item: idx for idx, item in enumerate(unique_items)}
+        self.reverse_user_mapping = {idx: user for user, idx in self.user_mapping.items()}
+        self.reverse_item_mapping = {idx: item for item, idx in self.item_mapping.items()}
+        
+        # Create interaction matrix
+        logger.info("🔄 Creating interaction matrix...")
+        interactions = sp.lil_matrix((len(unique_users), len(unique_items)))
+        
+        for _, row in reviews_df.iterrows():
+            user_idx = self.user_mapping[row['username']]
+            item_idx = self.item_mapping[row['tmdb_id']]
+            interactions[user_idx, item_idx] = row['rating']
             
-            user_mapping = {user: idx for idx, user in enumerate(users)}
-            movie_mapping = {movie: idx for idx, movie in enumerate(movies)}
+        self.interactions = interactions.tocsr()
+        
+        # Prepare item features matrix
+        logger.info("🔄 Preparing item features...")
+        # Filter features to only items we have in interactions
+        features_filtered = features_df[features_df['tmdb_id'].isin(unique_items)].copy()
+        
+        # Remove duplicates by taking the first occurrence
+        features_filtered = features_filtered.drop_duplicates(subset=['tmdb_id'], keep='first')
+        
+        features_filtered = features_filtered.set_index('tmdb_id').reindex(unique_items).fillna(0)
+        
+        # Store metadata for later use
+        metadata_file = str(reviews_file).replace('final_reviews', 'final_metadata')
+        if Path(metadata_file).exists():
+            self.metadata_df = pd.read_csv(metadata_file)
+        
+        # Create feature matrix (excluding tmdb_id)
+        feature_columns = [col for col in features_filtered.columns if col != 'tmdb_id']
+        feature_matrix = features_filtered[feature_columns].values
+        
+        # Convert to sparse matrix
+        self.item_features = sp.csr_matrix(feature_matrix)
+        
+        logger.info(f"✅ Data loaded successfully")
+        logger.info(f"   Users: {len(unique_users):,}")
+        logger.info(f"   Items: {len(unique_items):,}")
+        logger.info(f"   Interactions: {self.interactions.nnz:,}")
+        logger.info(f"   Features per item: {self.item_features.shape[1]:,}")
+        
+    def scale_features(self, mode='hybrid'):
+        """Scale features based on the selected mode.
+        
+        Args:
+            mode: 'hybrid', 'cf_only', or 'cb_only'
+        """
+        if self.item_features is None:
+            raise ValueError("Must load data first")
             
-            # Build interaction matrix
-            n_users, n_movies = len(users), len(movies)
-            interaction_matrix = csr_matrix((n_users, n_movies))
+        logger.info(f"🔄 Scaling features for {mode} mode...")
+        
+        if mode == 'cf_only':
+            # Zero out all metadata features, keep only basic item representation
+            logger.info("   CF-only: Using minimal item features")
+            # Create minimal identity matrix for items
+            scaled_features = sp.eye(self.item_features.shape[0], format='csr')
             
-            for _, row in self.reviews_df.iterrows():
-                user_idx = user_mapping[row['username']]
-                movie_idx = movie_mapping[row['tmdb_id']]
-                
-                # Use explicit rating if available, otherwise implicit (0.1)
-                rating = row['rating'] / 10.0 if row['has_rating'] else 0.1
-                interaction_matrix[user_idx, movie_idx] = rating
+        elif mode == 'cb_only':
+            # Use metadata features only, apply CB weight
+            scaled_features = self.item_features.copy() * self.cb_weight
+            logger.info(f"   CB-only: Applied weight {self.cb_weight}")
             
-            # Train SVD model
-            print("🤝 Training collaborative filtering...")
-            svd_model = TruncatedSVD(n_components=self.num_components, random_state=42)
-            user_factors = svd_model.fit_transform(interaction_matrix)
-            movie_factors = svd_model.components_
+        elif mode == 'hybrid':
+            # Create hybrid features: CB features + CF boost
+            # Apply CB weight to content features
+            cb_features = self.item_features.copy() * self.cb_weight
             
-            # Prepare content-based features
-            print("🎬 Preparing content-based features...")
+            # Create CF features (identity matrix) with CF boost
+            cf_features = sp.eye(self.item_features.shape[0], format='csr') * self.cf_weight
             
-            # Text features (TF-IDF)
-            text_features = []
-            for feature in ['genres', 'directors', 'cast', 'keywords', 'production_companies']:
-                if feature in self.metadata_df.columns:
-                    vectorizer = TfidfVectorizer(max_features=300, stop_words='english')
-                    feature_matrix = vectorizer.fit_transform(
-                        self.metadata_df[feature].fillna('').astype(str)
-                    )
-                    text_features.append(feature_matrix)
+            # Combine CB and CF features horizontally
+            scaled_features = sp.hstack([cb_features, cf_features], format='csr')
             
-            # Categorical features
-            categorical_features = []
-            for feature in ['year_bucket', 'runtime_bucket', 'budget_bucket', 'revenue_bucket', 'original_language']:
-                if feature in self.metadata_df.columns:
-                    encoder = LabelEncoder()
-                    encoded = encoder.fit_transform(self.metadata_df[feature].fillna('unknown'))
-                    # One-hot encode
-                    n_categories = len(encoder.classes_)
-                    category_matrix = csr_matrix((len(encoded), n_categories))
-                    for i, cat in enumerate(encoded):
-                        category_matrix[i, cat] = 1
-                    categorical_features.append(category_matrix)
+            logger.info(f"   Hybrid: Applied CB weight {self.cb_weight}, CF boost {self.cf_weight}")
+            logger.info(f"   Hybrid: Combined features shape: {scaled_features.shape}")
             
-            # Combine all features
-            all_features = text_features + categorical_features
-            if all_features:
-                combined_features = hstack(all_features)
-            else:
-                combined_features = csr_matrix((len(self.metadata_df), 1))
+        return scaled_features
+        
+    def train_model(self, mode='hybrid', components=64, loss='warp', 
+                   learning_rate=0.05, item_alpha=1e-6, user_alpha=1e-6, 
+                   epochs=10, random_state=42):
+        """Train the LightFM model.
+        
+        Args:
+            mode: 'hybrid', 'cf_only', or 'cb_only'
+            components: Number of latent factors
+            loss: Loss function ('warp' or 'bpr')
+            learning_rate: Learning rate for training
+            item_alpha: L2 penalty for item features
+            user_alpha: L2 penalty for user features  
+            epochs: Number of training epochs
+            random_state: Random seed for reproducibility
+        """
+        logger.info(f"🚀 Training LightFM model in {mode} mode...")
+        
+        # Scale features based on mode
+        scaled_features = self.scale_features(mode)
+        
+        # Initialize model
+        self.model = LightFM(
+            no_components=components,
+            loss=loss,
+            learning_rate=learning_rate,
+            item_alpha=item_alpha,
+            user_alpha=user_alpha,
+            random_state=random_state
+        )
+        
+        # Train model
+        logger.info(f"   Training for {epochs} epochs...")
+        self.model.fit(
+            interactions=self.interactions,
+            item_features=scaled_features,
+            epochs=epochs,
+            verbose=True
+        )
+        
+        logger.info("✅ Model training complete")
+        
+    def save_model(self, mode='hybrid'):
+        """Save the trained model to disk."""
+        if self.model is None:
+            raise ValueError("No model to save")
             
-            # Calculate movie similarity matrix
-            movie_similarity = cosine_similarity(combined_features)
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        model_dir = Path("models")
+        model_dir.mkdir(exist_ok=True)
+        
+        model_file = model_dir / f"lightfm_{mode}_{timestamp}.pkl"
+        
+        model_data = {
+            'model': self.model,
+            'user_mapping': self.user_mapping,
+            'item_mapping': self.item_mapping,
+            'reverse_user_mapping': self.reverse_user_mapping,
+            'reverse_item_mapping': self.reverse_item_mapping,
+            'cf_weight': self.cf_weight,
+            'cb_weight': self.cb_weight,
+            'mode': mode
+        }
+        
+        with open(model_file, 'wb') as f:
+            pickle.dump(model_data, f)
             
-            # Store model
-            self.model = {
-                'svd_model': svd_model,
-                'user_factors': user_factors,
-                'movie_factors': movie_factors,
-                'movie_similarity': movie_similarity,
-                'interaction_matrix': interaction_matrix,
-                'user_mapping': user_mapping,
-                'movie_mapping': movie_mapping,
-                'users': users,
-                'movies': movies
+        logger.info(f"💾 Model saved to {model_file}")
+        return model_file
+        
+    def load_model(self, model_file):
+        """Load a trained model from disk."""
+        logger.info(f"📂 Loading model from {model_file}")
+        
+        with open(model_file, 'rb') as f:
+            model_data = pickle.load(f)
+            
+        self.model = model_data['model']
+        self.user_mapping = model_data['user_mapping']
+        self.item_mapping = model_data['item_mapping']
+        self.reverse_user_mapping = model_data['reverse_user_mapping']
+        self.reverse_item_mapping = model_data['reverse_item_mapping']
+        self.cf_weight = model_data['cf_weight']
+        self.cb_weight = model_data['cb_weight']
+        
+        logger.info("✅ Model loaded successfully")
+        
+    def evaluate_model(self, mode='hybrid', k=10, test_size=0.2):
+        """Evaluate model performance on held-out test set."""
+        if self.model is None:
+            raise ValueError("No trained model available")
+            
+        logger.info(f"📊 Evaluating {mode} model...")
+        
+        # Create train/test split
+        train_interactions, test_interactions = train_test_split(
+            self.interactions, test_size=test_size, random_state=42
+        )
+        
+        # Scale features for evaluation
+        scaled_features = self.scale_features(mode)
+        
+        # Calculate metrics
+        precision = precision_at_k(self.model, test_interactions, 
+                                 item_features=scaled_features, k=k).mean()
+        recall = recall_at_k(self.model, test_interactions,
+                           item_features=scaled_features, k=k).mean()
+        auc = auc_score(self.model, test_interactions,
+                       item_features=scaled_features).mean()
+        
+        metrics = {
+            'mode': mode,
+            'precision_at_k': precision,
+            'recall_at_k': recall,
+            'auc': auc,
+            'k': k
+        }
+        
+        logger.info(f"📈 Evaluation Results ({mode}):")
+        logger.info(f"   Precision@{k}: {precision:.4f}")
+        logger.info(f"   Recall@{k}: {recall:.4f}")
+        logger.info(f"   AUC: {auc:.4f}")
+        
+        return metrics
+        
+    def recommend(self, username, top_n=25, mode='hybrid'):
+        """Generate top-N recommendations for a user.
+        
+        Args:
+            username: Letterboxd username
+            top_n: Number of recommendations to return
+            mode: Model mode to use for predictions
+            
+        Returns:
+            List of recommended movies with metadata
+        """
+        if self.model is None:
+            raise ValueError("No trained model available")
+            
+        if username not in self.user_mapping:
+            raise ValueError(f"User '{username}' not found in training data")
+            
+        logger.info(f"🎯 Generating {top_n} recommendations for '{username}'...")
+        
+        user_idx = self.user_mapping[username]
+        n_items = len(self.item_mapping)
+        
+        # Scale features for prediction
+        scaled_features = self.scale_features(mode)
+        
+        # Get predictions for all items
+        scores = self.model.predict(
+            user_ids=[user_idx] * n_items,
+            item_ids=list(range(n_items)),
+            item_features=scaled_features
+        )
+        
+        # Get top N items
+        top_items = np.argsort(scores)[::-1][:top_n]
+        
+        # Convert back to tmdb_ids and add metadata
+        recommendations = []
+        for rank, item_idx in enumerate(top_items, 1):
+            tmdb_id = self.reverse_item_mapping[item_idx]
+            score = scores[item_idx]
+            
+            rec = {
+                'rank': rank,
+                'tmdb_id': int(tmdb_id),
+                'score': float(score)
             }
             
-            print(f"✅ Model trained successfully!")
-            print(f"   - Users: {len(users)}, Movies: {len(movies)}")
-            print(f"   - SVD components: {self.num_components}")
-            print(f"   - Features: {combined_features.shape[1]}")
+            # Add metadata if available
+            if self.metadata_df is not None:
+                metadata = self.metadata_df[self.metadata_df['tmdb_id'] == tmdb_id]
+                if not metadata.empty:
+                    metadata_row = metadata.iloc[0]
+                    rec.update({
+                        'title': metadata_row.get('title', 'Unknown'),
+                        'year': int(metadata_row.get('year', 0)) if pd.notna(metadata_row.get('year')) else None,
+                        'runtime': int(metadata_row.get('runtime', 0)) if pd.notna(metadata_row.get('runtime')) else None,
+                        'directors': metadata_row.get('directors', []),
+                        'cast': metadata_row.get('cast', []),
+                        'genres': metadata_row.get('genres', []),
+                        'language': metadata_row.get('original_language', ''),
+                        'overview': metadata_row.get('overview', ''),
+                        'budget': int(metadata_row.get('budget', 0)) if pd.notna(metadata_row.get('budget')) else None,
+                        'revenue': int(metadata_row.get('revenue', 0)) if pd.notna(metadata_row.get('revenue')) else None
+                    })
             
-            # Hyperparameter optimization
-            if self.optimize_alpha:
-                self._optimize_hyperparameters(interaction_matrix, combined_features)
+            recommendations.append(rec)
             
-            # Train content model with L2 regularization
-            self.content_model = self._train_content_model(interaction_matrix, combined_features)
-            
-            return True
-            
-        except Exception as e:
-            print(f"❌ Error training model: {e}")
-            return False
-    
-    def _optimize_hyperparameters(self, interaction_matrix, combined_features):
-        """Optimize alpha and L2 regularization using cross-validation"""
-        try:
-            print("🔧 Optimizing hyperparameters with cross-validation...")
-            
-            # Create validation set
-            n_users, n_movies = interaction_matrix.shape
-            
-            # Sample validation interactions
-            validation_interactions = []
-            for user_idx in range(min(50, n_users)):  # Sample up to 50 users
-                user_ratings = interaction_matrix[user_idx].toarray().flatten()
-                rated_movies = np.where(user_ratings > 0)[0]
-                
-                if len(rated_movies) >= 5:  # Need at least 5 ratings for validation
-                    # Hold out 20% of ratings for validation
-                    n_holdout = max(1, len(rated_movies) // 5)
-                    holdout_indices = np.random.choice(rated_movies, n_holdout, replace=False)
-                    
-                    for movie_idx in holdout_indices:
-                        validation_interactions.append({
-                            'user_idx': user_idx,
-                            'movie_idx': movie_idx,
-                            'rating': user_ratings[movie_idx]
-                        })
-            
-            if len(validation_interactions) < 10:
-                print("⚠️  Not enough validation data, using default parameters")
-                self.optimal_alpha = self.alpha
-                self.optimal_l2_reg = self.l2_reg
-                return
-            
-            # Grid search for optimal parameters
-            alpha_values = [0.5, 0.6, 0.7, 0.8, 0.9]
-            l2_values = [0.1, 0.5, 1.0, 2.0, 5.0]
-            
-            best_alpha = self.alpha
-            best_l2 = self.l2_reg
-            best_score = float('inf')
-            
-            print(f"   Testing {len(alpha_values)} alpha values and {len(l2_values)} L2 values...")
-            
-            for alpha in alpha_values:
-                for l2_reg in l2_values:
-                    # Calculate validation score
-                    score = self._validate_parameters(
-                        interaction_matrix, combined_features, 
-                        validation_interactions, alpha, l2_reg
-                    )
-                    
-                    if score < best_score:
-                        best_score = score
-                        best_alpha = alpha
-                        best_l2 = l2_reg
-            
-            self.optimal_alpha = best_alpha
-            self.optimal_l2_reg = best_l2
-            
-            print(f"✅ Optimal parameters: alpha={best_alpha:.2f}, L2={best_l2:.2f}, RMSE={best_score:.3f}")
-            
-        except Exception as e:
-            print(f"⚠️  Hyperparameter optimization failed: {e}")
-            self.optimal_alpha = self.alpha
-            self.optimal_l2_reg = self.l2_reg
-    
-    def _validate_parameters(self, interaction_matrix, combined_features, 
-                           validation_interactions, alpha, l2_reg):
-        """Validate parameters on held-out data"""
-        try:
-            # Train models with current parameters
-            svd_model = TruncatedSVD(n_components=self.num_components, random_state=42)
-            user_factors = svd_model.fit_transform(interaction_matrix)
-            movie_factors = svd_model.components_
-            
-            # Train content-based model with L2 regularization
-            content_model = Ridge(alpha=l2_reg, random_state=42)
-            
-            # Prepare training data for content model
-            X_content = []
-            y_content = []
-            
-            for interaction in validation_interactions:
-                user_idx = interaction['user_idx']
-                movie_idx = interaction['movie_idx']
-                rating = interaction['rating']
-                
-                # Get user's collaborative features
-                user_features = user_factors[user_idx]
-                
-                # Get movie's content features
-                movie_features = combined_features[movie_idx].toarray().flatten()
-                
-                # Combine features
-                combined_vector = np.concatenate([user_features, movie_features])
-                
-                X_content.append(combined_vector)
-                y_content.append(rating)
-            
-            if len(X_content) == 0:
-                return float('inf')
-            
-            # Train content model
-            content_model.fit(X_content, y_content)
-            
-            # Calculate validation RMSE
-            predictions = []
-            actuals = []
-            
-            for interaction in validation_interactions:
-                user_idx = interaction['user_idx']
-                movie_idx = interaction['movie_idx']
-                actual_rating = interaction['rating']
-                
-                # Collaborative score
-                cf_score = np.dot(user_factors[user_idx], movie_factors[:, movie_idx])
-                
-                # Content-based score
-                user_features = user_factors[user_idx]
-                movie_features = combined_features[movie_idx].toarray().flatten()
-                combined_vector = np.concatenate([user_features, movie_features])
-                cb_score = content_model.predict([combined_vector])[0]
-                
-                # Hybrid score
-                hybrid_score = alpha * cf_score + (1 - alpha) * cb_score
-                
-                predictions.append(hybrid_score)
-                actuals.append(actual_rating)
-            
-            return np.sqrt(mean_squared_error(actuals, predictions))
-            
-        except Exception as e:
-            return float('inf')
-    
-    def _train_content_model(self, interaction_matrix, combined_features):
-        """Train content-based model with L2 regularization"""
-        try:
-            print("🎯 Training content-based model with L2 regularization...")
-            
-            # Prepare training data
-            X_train = []
-            y_train = []
-            
-            n_users, n_movies = interaction_matrix.shape
-            
-            # Sample training interactions
-            for user_idx in range(min(100, n_users)):  # Sample up to 100 users
-                user_ratings = interaction_matrix[user_idx].toarray().flatten()
-                rated_movies = np.where(user_ratings > 0)[0]
-                
-                if len(rated_movies) > 0:
-                    # Sample up to 50 movies per user
-                    sample_size = min(50, len(rated_movies))
-                    sampled_movies = np.random.choice(rated_movies, sample_size, replace=False)
-                    
-                    for movie_idx in sampled_movies:
-                        # Get user's collaborative features (from SVD)
-                        user_features = self.model['user_factors'][user_idx]
-                        
-                        # Get movie's content features
-                        movie_features = combined_features[movie_idx].toarray().flatten()
-                        
-                        # Combine features
-                        combined_vector = np.concatenate([user_features, movie_features])
-                        
-                        X_train.append(combined_vector)
-                        y_train.append(user_ratings[movie_idx])
-            
-            if len(X_train) == 0:
-                print("⚠️  No training data for content model")
-                return None
-            
-            # Train Ridge regression model
-            content_model = Ridge(alpha=self.optimal_l2_reg, random_state=42)
-            content_model.fit(X_train, y_train)
-            
-            print(f"✅ Content model trained on {len(X_train)} interactions")
-            return content_model
-            
-        except Exception as e:
-            print(f"⚠️  Content model training failed: {e}")
-            return None
-    
-    def predict_rating(self, user_id: int, movie_id: int) -> float:
-        """Predict rating for user-movie pair using hybrid approach"""
-        # Collaborative filtering score
-        cf_score = np.dot(self.model['user_factors'][user_id], 
-                         self.model['movie_factors'][:, movie_id])
-        
-        # Content-based score
-        user_ratings = self.model['interaction_matrix'][user_id].toarray().flatten()
-        rated_movies = np.where(user_ratings > 0)[0]
-        
-        if len(rated_movies) > 0:
-            # Average similarity to user's rated movies
-            similarities = self.model['movie_similarity'][movie_id, rated_movies]
-            ratings = user_ratings[rated_movies]
-            
-            if np.sum(similarities) > 0:
-                cb_score = np.average(ratings, weights=similarities)
-            else:
-                cb_score = np.mean(ratings)
-        else:
-            cb_score = 0.5  # Default for new users
-        
-        # Hybrid combination
-        hybrid_score = self.alpha * cf_score + (1 - self.alpha) * cb_score
-        
-        # Convert to 1-10 scale
-        return np.clip(hybrid_score * 10, 1, 10)
-    
-    def generate_recommendations(self, username: str) -> Optional[pd.DataFrame]:
-        """Generate recommendations for a user"""
-        try:
-            print(f"🎬 Generating recommendations for {username}...")
-            
-            # Scrape and integrate user data
-            if not self.scrape_user_data(username):
-                return None
-            
-            # Train model with updated data
-            if not self.train_model():
-                return None
-            
-            # Check if user exists
-            if username not in self.model['user_mapping']:
-                print(f"❌ User {username} not found after scraping")
-                return None
-            
-            user_id = self.model['user_mapping'][username]
-            
-            # Get user's rated movies
-            user_ratings = self.model['interaction_matrix'][user_id].toarray().flatten()
-            rated_movies = set(np.where(user_ratings > 0)[0])
-            
-            # Generate predictions for unrated movies
-            predictions = []
-            for movie_idx in range(len(self.model['movies'])):
-                if movie_idx not in rated_movies:
-                    tmdb_id = self.model['movies'][movie_idx]
-                    predicted_rating = self.predict_rating(user_id, movie_idx)
-                    
-                    # Get movie metadata
-                    movie_info = self.metadata_df[self.metadata_df['tmdb_id'] == tmdb_id]
-                    if len(movie_info) > 0:
-                        movie_info = movie_info.iloc[0]
-                        
-                        predictions.append({
-                            'tmdb_id': tmdb_id,
-                            'title': movie_info.get('title', 'Unknown'),
-                            'year': movie_info.get('release_year', 'Unknown'),
-                            'genres': movie_info.get('genres', 'Unknown'),
-                            'directors': movie_info.get('directors', 'Unknown'),
-                            'predicted_rating': predicted_rating
-                        })
-            
-            # Sort by predicted rating and take top recommendations
-            predictions.sort(key=lambda x: x['predicted_rating'], reverse=True)
-            top_predictions = predictions[:self.num_recommendations]
-            
-            # Create DataFrame
-            recommendations_df = pd.DataFrame(top_predictions)
-            recommendations_df['rank'] = range(1, len(recommendations_df) + 1)
-            
-            # Save recommendations
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            output_file = os.path.join(self.output_dir, f'recommendations_{username}_{timestamp}.csv')
-            recommendations_df.to_csv(output_file, index=False)
-            
-            print(f"✅ Generated {len(recommendations_df)} recommendations")
-            print(f"📁 Saved to: {output_file}")
-            
-            return recommendations_df
-            
-        except Exception as e:
-            print(f"❌ Error generating recommendations: {e}")
-            return None
+        logger.info(f"✅ Generated {len(recommendations)} recommendations")
+        return recommendations
 
 def main():
-    """Main function for command-line usage"""
-    if len(sys.argv) < 2:
-        print("Usage: python recommendation_engine.py <username>")
-        sys.exit(1)
+    """Command-line interface for the recommendation engine."""
+    parser = argparse.ArgumentParser(description="Letterboxd Recommendation Engine")
+    parser.add_argument("--mode", choices=['hybrid', 'cf_only', 'cb_only'], 
+                       default='hybrid', help="Model mode")
+    parser.add_argument("--train", action='store_true', help="Train a new model")
+    parser.add_argument("--evaluate", action='store_true', help="Evaluate model")
+    parser.add_argument("--recommend", type=str, help="Username to generate recommendations for")
+    parser.add_argument("--top_n", type=int, default=25, help="Number of recommendations")
+    parser.add_argument("--reviews_file", type=str, help="Path to reviews CSV")
+    parser.add_argument("--features_file", type=str, help="Path to features CSV")
+    parser.add_argument("--model_file", type=str, help="Path to saved model")
     
-    username = sys.argv[1]
+    args = parser.parse_args()
     
-    # Create engine
-    engine = LetterboxdRecommendationEngine()
+    # Initialize engine
+    engine = RecommendationEngine()
     
     # Load data
-    if not engine.load_data():
-        sys.exit(1)
+    engine.load_data(args.reviews_file, args.features_file)
+    
+    # Load existing model or train new one
+    if args.model_file:
+        engine.load_model(args.model_file)
+    elif args.train:
+        engine.train_model(mode=args.mode)
+        model_file = engine.save_model(args.mode)
+        logger.info(f"Model saved to: {model_file}")
+    else:
+        # Try to find existing model
+        model_files = list(Path("models").glob(f"lightfm_{args.mode}_*.pkl"))
+        if model_files:
+            latest_model = max(model_files, key=lambda p: p.stat().st_mtime)
+            engine.load_model(latest_model)
+        else:
+            logger.warning("No existing model found, training new model...")
+            engine.train_model(mode=args.mode)
+            engine.save_model(args.mode)
+    
+    # Evaluate model
+    if args.evaluate:
+        metrics = engine.evaluate_model(args.mode)
+        print(json.dumps(metrics, indent=2))
     
     # Generate recommendations
-    recommendations = engine.generate_recommendations(username)
-    
-    if recommendations is not None:
-        print(f"\n🎬 Top 10 Recommendations for {username}:")
-        print("-" * 60)
-        
-        for i, row in recommendations.head(10).iterrows():
-            print(f"{row['rank']:2d}. {row['title']} ({row['year']})")
-            print(f"    Rating: {row['predicted_rating']:.1f}/10")
-            print(f"    Genres: {row['genres']}")
-            print()
-    else:
-        print(f"❌ Failed to generate recommendations for {username}")
+    if args.recommend:
+        try:
+            recommendations = engine.recommend(args.recommend, args.top_n, args.mode)
+            print(json.dumps(recommendations, indent=2))
+        except ValueError as e:
+            logger.error(f"Error generating recommendations: {e}")
 
 if __name__ == "__main__":
     main()

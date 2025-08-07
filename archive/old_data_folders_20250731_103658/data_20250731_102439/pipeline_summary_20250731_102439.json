@@ -1,0 +1,16 @@
+{
+  "timestamp": "20250731_102439",
+  "data_folder": "data_20250731_102439",
+  "total_reviews": 0,
+  "unique_users": 0,
+  "unique_movies": 0,
+  "avg_rating": NaN,
+  "rating_std": NaN,
+  "pipeline_params": {
+    "total_users_scraped": 3,
+    "unlimited_reviews_per_user": true,
+    "max_workers": 20,
+    "min_user_reviews": 10,
+    "min_movie_reviews": 5
+  }
+}

@@ -1,0 +1,418 @@
+title,year,clean_title,appearance_count
+Alien³,,alien,10
+The Evil Dead,,evil dead,8
+12 Angry Men,,12 angry men,6
+2001: A Space Odyssey,,2001 space odyssey,6
+A Complete Unknown,,complete unknown,6
+A Quiet Place,2018.0,quiet place,6
+A Real Pain,,real pain,6
+Aftersun,,aftersun,6
+Alien: Romulus,,alien romulus,6
+American Psycho,,american psycho,6
+Anatomy of a Fall,,anatomy of fall,6
+Anora,,anora,6
+Ant-Man,,antman,6
+Arrival,2016.0,arrival,6
+Avatar,,avatar,6
+Avatar: The Way of Water,,avatar way of water,6
+Avengers: Endgame,,avengers endgame,6
+Avengers: Infinity War,,avengers infinity war,6
+Baby Driver,,baby driver,6
+Barbie,,barbie,6
+Batman Begins,,batman begins,6
+Beetlejuice,,beetlejuice,6
+Before Midnight,,before midnight,6
+Before Sunrise,,before sunrise,6
+Birdman or (The Unexpected Virtue of Ignorance),,birdman or unexpected virtue of ignorance,6
+Black Panther,,black panther,6
+Blade Runner 2049,2049.0,blade runner 2049,6
+Bottoms,,bottoms,6
+Call Me by Your Name,,call me by your name,6
+Captain America: Civil War,,captain america civil war,6
+Catch Me If You Can,2002.0,catch me if you can,6
+Challengers,,challengers,6
+Charlie and the Chocolate Factory,,charlie and chocolate factory,6
+Conclave,,conclave,6
+Deadpool,,deadpool,6
+Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb,,dr strangelove or how i learned to stop worrying and love bomb,6
+Drive,2011.0,drive,6
+Dune,2021.0,dune,6
+Dune: Part Two,,dune part two,6
+Enemy,,enemy,6
+Eternal Sunshine of the Spotless Mind,,eternal sunshine of spotless mind,6
+Everything Everywhere All at Once,,everything everywhere all at once,6
+Fantastic Mr. Fox,,fantastic mr fox,6
+Fargo,,fargo,6
+Finding Nemo,,finding nemo,6
+Furiosa: A Mad Max Saga,,furiosa mad max saga,6
+Get Out,2017.0,get out,6
+Glass Onion,,glass onion,6
+Gone Girl,,gone girl,6
+Guardians of the Galaxy,,guardians of galaxy,6
+Guardians of the Galaxy Vol. 2,,guardians of galaxy vol 2,6
+Halloween,1978.0,halloween,6
+Her,,her,6
+Home Alone,,home alone,6
+Home Alone 2: Lost in New York,,home alone 2 lost in new york,6
+Inception,,inception,6
+Incredibles 2,,incredibles 2,6
+Inglourious Basterds,,inglourious basterds,6
+Inside Out,2015.0,inside out,6
+Interstellar,,interstellar,6
+Iron Man,2008.0,iron man,6
+Iron Man 2,,iron man 2,6
+Iron Man 3,,iron man 3,6
+It's a Wonderful Life,,its wonderful life,6
+Jaws,,jaws,6
+Jojo Rabbit,,jojo rabbit,6
+Joker,2019.0,joker,6
+Joker: Folie à Deux,,joker folie deux,6
+Jurassic Park,,jurassic park,6
+Killers of the Flower Moon,,killers of flower moon,6
+Knives Out,2019.0,knives out,6
+Kung Fu Panda,,kung fu panda,6
+La La Land,,la la land,6
+Lady Bird,,lady bird,6
+Last Night in Soho,,last night in soho,6
+Little Miss Sunshine,,little miss sunshine,6
+Lost in Translation,,lost in translation,6
+Luca,2021.0,luca,6
+Mad Max: Fury Road,,mad max fury road,6
+Madagascar,,madagascar,6
+Madame Web,,madame web,6
+Manchester by the Sea,,manchester by sea,6
+Memento,,memento,6
+Mission: Impossible,,mission impossible,6
+Mission: Impossible III,,mission impossible iii,6
+Mission: Impossible – Dead Reckoning,,mission impossible dead reckoning,6
+Mission: Impossible – Fallout,,mission impossible fallout,6
+Mission: Impossible – Ghost Protocol,,mission impossible ghost protocol,6
+Mission: Impossible – Rogue Nation,,mission impossible rogue nation,6
+Mission: Impossible – The Final Reckoning,,mission impossible final reckoning,6
+Moana,2016.0,moana,6
+Moonlight,2016.0,moonlight,6
+Moonrise Kingdom,,moonrise kingdom,6
+Network,,network,6
+Nickel Boys,,nickel boys,6
+Nightcrawler,,nightcrawler,6
+Nope,,nope,6
+Nosferatu,2024.0,nosferatu,6
+Ocean's Eleven,2001.0,oceans eleven,6
+Oldboy,,oldboy,6
+Once Upon a Time... in Hollywood,,once upon time in hollywood,6
+Oppenheimer,2023.0,oppenheimer,6
+Parasite,2019.0,parasite,6
+Past Lives,,past lives,6
+Phantom Thread,,phantom thread,6
+Pig,2021.0,pig,6
+Poor Things,2023.0,poor things,6
+Portrait of a Lady on Fire,,portrait of lady on fire,6
+Pride & Prejudice,,pride prejudice,6
+Pulp Fiction,,pulp fiction,6
+Punch-Drunk Love,,punchdrunk love,6
+Ratatouille,,ratatouille,6
+Rear Window,,rear window,6
+Scott Pilgrim vs. the World,,scott pilgrim vs world,6
+Se7en,,se7en,6
+Shiva Baby,2020.0,shiva baby,6
+Shrek,,shrek,6
+Shrek 2,,shrek 2,6
+Spider-Man,,spiderman,6
+Spider-Man 2,,spiderman 2,6
+Spider-Man: Across the Spider-Verse,,spiderman across spiderverse,6
+Spider-Man: Far From Home,,spiderman far from home,6
+Spider-Man: Homecoming,,spiderman homecoming,6
+Spider-Man: Into the Spider-Verse,,spiderman into spiderverse,6
+Spider-Man: No Way Home,,spiderman no way home,6
+Superman,2025.0,superman,6
+Taxi Driver,,taxi driver,6
+Tenet,,tenet,6
+The Avengers,2012.0,avengers,6
+The Banshees of Inisherin,,banshees of inisherin,6
+The Beast,,beast,6
+The Dark Knight,,dark knight,6
+The Dark Knight Rises,,dark knight rises,6
+The Fabelmans,,fabelmans,6
+The Father,2020.0,father,6
+The Favourite,,favourite,6
+The Final Destination,,final destination,6
+The Grand Budapest Hotel,,grand budapest hotel,6
+The Holdovers,,holdovers,6
+The Hunger Games,,hunger games,6
+The Incredibles,,incredibles,6
+The Iron Giant,,iron giant,6
+The Killer,2023.0,killer,6
+The Lighthouse,2019.0,lighthouse,6
+The Lobster,,lobster,6
+The Lord of the Rings: The Fellowship of the Ring,,lord of rings fellowship of ring,6
+The Lord of the Rings: The Return of the King,,lord of rings return of king,6
+The Lord of the Rings: The Two Towers,,lord of rings two towers,6
+The Matrix,,matrix,6
+The Menu,2022.0,menu,6
+The Nice Guys,,nice guys,6
+The Phoenician Scheme,,phoenician scheme,6
+The Prestige,,prestige,6
+The Shape of Water,,shape of water,6
+The Shawshank Redemption,,shawshank redemption,6
+The Shining,,shining,6
+The Silence of the Lambs,,silence of lambs,6
+The Social Network,,social network,6
+The Substance,,substance,6
+The Terminator,,terminator,6
+The Thing,,thing,6
+The Truman Show,,truman show,6
+The Zone of Interest,,zone of interest,6
+Thor: Love and Thunder,,thor love and thunder,6
+Thor: Ragnarok,,thor ragnarok,6
+"Three Billboards Outside Ebbing, Missouri",,three billboards outside ebbing missouri,6
+Top Gun: Maverick,,top gun maverick,6
+Trap,2024.0,trap,6
+Uncut Gems,,uncut gems,6
+Up,,up,6
+Us,2019.0,us,6
+Whiplash,2014.0,whiplash,6
+10 Cloverfield Lane,,10 cloverfield lane,5
+10 Things I Hate About You,,10 things i hate about you,5
+1917,,1917,5
+28 Days Later,,28 days later,5
+A Different Man,,different man,5
+A Nightmare on Elm Street,,nightmare on elm street,5
+After Hours,,after hours,5
+Airplane!,,airplane,5
+Akira,,akira,5
+Aladdin,,aladdin,5
+Aquaman,2018.0,aquaman,5
+Avengers: Age of Ultron,,avengers age of ultron,5
+Babylon,2022.0,babylon,5
+Back to the Future,,back to future,5
+Barbarian,2022.0,barbarian,5
+Batman v Superman: Dawn of Justice,,batman v superman dawn of justice,5
+Beetlejuice Beetlejuice,,beetlejuice beetlejuice,5
+Before Sunset,,before sunset,5
+BlacKkKlansman,,blackkklansman,5
+Black Panther: Wakanda Forever,,black panther wakanda forever,5
+Blade Runner,,blade runner,5
+Blow Out,,blow out,5
+Bodies Bodies Bodies,,bodies bodies bodies,5
+Bones and All,,bones and all,5
+Captain America: The Winter Soldier,,captain america winter soldier,5
+Carol,2015.0,carol,5
+Cars,,cars,5
+Cars 2,,cars 2,5
+Casablanca,,casablanca,5
+Casino Royale,2006.0,casino royale,5
+Cinema Paradiso,,cinema paradiso,5
+City of God,,city of god,5
+Clue,,clue,5
+Clueless,,clueless,5
+Coco,2017.0,coco,5
+Coraline,,coraline,5
+Deadpool & Wolverine,,deadpool wolverine,5
+Deadpool 2,,deadpool 2,5
+Decision to Leave,,decision to leave,5
+Die Hard,,die hard,5
+Django Unchained,,django unchained,5
+Do the Right Thing,,do right thing,5
+Doctor Strange,2016.0,doctor strange,5
+Doctor Strange in the Multiverse of Madness,,doctor strange in multiverse of madness,5
+Donnie Darko,,donnie darko,5
+Dunkirk,2017.0,dunkirk,5
+E.T. the Extra-Terrestrial,,et extraterrestrial,5
+El Camino: A Breaking Bad Movie,,el camino breaking bad movie,5
+Elf,,elf,5
+Emilia Pérez,,emilia prez,5
+Evil Dead II,,evil dead ii,5
+Ex Machina,2015.0,ex machina,5
+F1,,f1,5
+Fallen Angels,,fallen angels,5
+Fantastic Four: Rise of the Silver Surfer,,fantastic four rise of silver surfer,5
+Ferris Bueller's Day Off,,ferris buellers day off,5
+Fight Club,,fight club,5
+First Reformed,,first reformed,5
+Flow,2024.0,flow,5
+Ford v Ferrari,,ford v ferrari,5
+Forrest Gump,,forrest gump,5
+Frances Ha,,frances ha,5
+Funny Games,,funny games,5
+Game Night,,game night,5
+Ghostbusters,,ghostbusters,5
+"Girl, Interrupted",,girl interrupted,5
+Gladiator,2000.0,gladiator,5
+Good Time,,good time,5
+Good Will Hunting,,good will hunting,5
+GoodFellas,,goodfellas,5
+Grave of the Fireflies,,grave of fireflies,5
+Gravity,2013.0,gravity,5
+Gremlins,,gremlins,5
+Guillermo del Toro's Pinocchio,,guillermo del toros pinocchio,5
+Harry Potter and the Philosopher's Stone,,harry potter and philosophers stone,5
+Heat,1995.0,heat,5
+Hereditary,,hereditary,5
+High School Musical,,high school musical,5
+Hot Fuzz,,hot fuzz,5
+How the Grinch Stole Christmas,2000.0,how grinch stole christmas,5
+How to Train Your Dragon,,how to train your dragon,5
+I Saw the TV Glow,,i saw tv glow,5
+I'm Still Here,2024.0,im still here,5
+I'm Thinking of Ending Things,,im thinking of ending things,5
+Ice Age,,ice age,5
+Indiana Jones and the Last Crusade,,indiana jones and last crusade,5
+Indiana Jones and the Temple of Doom,,indiana jones and temple of doom,5
+Inside Out 2,2024.0,inside out 2,5
+It,2017.0,it,5
+Jennifer's Body,,jennifers body,5
+John Wick,,john wick,5
+John Wick: Chapter 2,,john wick chapter 2,5
+John Wick: Chapter 3 – Parabellum,,john wick chapter 3 parabellum,5
+John Wick: Chapter 4,,john wick chapter 4,5
+Kinds of Kindness,,kinds of kindness,5
+Kung Fu Panda 2,,kung fu panda 2,5
+La Haine,,la haine,5
+Licorice Pizza,,licorice pizza,5
+Life of Pi,,life of pi,5
+Little Women,2019.0,little women,5
+Logan,2017.0,logan,5
+Longlegs,,longlegs,5
+Love Lies Bleeding,2024.0,love lies bleeding,5
+M3GAN,,m3gan,5
+MaXXXine,,maxxxine,5
+Madagascar: Escape 2 Africa,,madagascar escape 2 africa,5
+Mamma Mia!,,mamma mia,5
+Man of Steel,,man of steel,5
+Marcel the Shell with Shoes On,2021.0,marcel shell with shoes on,5
+Marriage Story,2019.0,marriage story,5
+Materialists,,materialists,5
+May December,,may december,5
+Mean Girls,,mean girls,5
+Megalopolis,2024.0,megalopolis,5
+Memories of Murder,,memories of murder,5
+Mickey 17,,mickey 17,5
+Midsommar,,midsommar,5
+Mission: Impossible II,,mission impossible ii,5
+"Monsters, Inc.",,monsters inc,5
+Mulholland Drive,,mulholland drive,5
+Murder on the Orient Express,2017.0,murder on orient express,5
+My Neighbor Totoro,,my neighbor totoro,5
+Nimona,2023.0,nimona,5
+No Country for Old Men,,no country for old men,5
+Nomadland,,nomadland,5
+One Flew Over the Cuckoo's Nest,,one flew over cuckoos nest,5
+Paddington,,paddington,5
+Paddington 2,,paddington 2,5
+Palm Springs,2020.0,palm springs,5
+"Paris, Texas",,paris texas,5
+Pearl,2022.0,pearl,5
+Perfect Blue,,perfect blue,5
+Persona,,persona,5
+Poison,2023.0,poison,5
+Princess Mononoke,,princess mononoke,5
+Priscilla,,priscilla,5
+Prisoners,,prisoners,5
+Promising Young Woman,,promising young woman,5
+Psycho,,psycho,5
+Queer,2024.0,queer,5
+RRR,,rrr,5
+Raiders of the Lost Ark,,raiders of lost ark,5
+Rango,,rango,5
+Reservoir Dogs,,reservoir dogs,5
+Revenge,2017.0,revenge,5
+Rio,2011.0,rio,5
+Rogue One: A Star Wars Story,,rogue one star wars story,5
+Rope,,rope,5
+Rosemary's Baby,,rosemarys baby,5
+Rye Lane,,rye lane,5
+Saltburn,,saltburn,5
+Schindler's List,,schindlers list,5
+Scream,,scream,5
+Scream 2,,scream 2,5
+Shang-Chi and the Legend of the Ten Rings,,shangchi and legend of ten rings,5
+Shaun of the Dead,,shaun of dead,5
+Shrek the Third,,shrek third,5
+Sing Sing,2023.0,sing sing,5
+Singin' in the Rain,,singin in rain,5
+Sinners,2025.0,sinners,5
+Skyfall,,skyfall,5
+Some Like It Hot,,some like it hot,5
+Sonic the Hedgehog,,sonic hedgehog,5
+Soul,2020.0,soul,5
+Speed,,speed,5
+Spencer,2021.0,spencer,5
+Spider-Man 3,,spiderman 3,5
+Spirited Away,,spirited away,5
+Split,2016.0,split,5
+Spotlight,,spotlight,5
+Star Wars,,star wars,5
+Star Wars: The Force Awakens,,star wars force awakens,5
+Sunset Boulevard,,sunset boulevard,5
+Superbad,,superbad,5
+Talk to Me,2022.0,talk to me,5
+Tangerine,,tangerine,5
+Terminator 2: Judgment Day,,terminator 2 judgment day,5
+The Amazing Spider-Man,,amazing spiderman,5
+The Amazing Spider-Man 2,,amazing spiderman 2,5
+The Apartment,,apartment,5
+The Apprentice,2024.0,apprentice,5
+The Batman,,batman,5
+The Big Lebowski,,big lebowski,5
+The Boy and the Heron,,boy and heron,5
+The Brutalist,,brutalist,5
+The Cabin in the Woods,,cabin in woods,5
+The Conjuring,,conjuring,5
+The Departed,,departed,5
+The Devil Wears Prada,,devil wears prada,5
+The Empire Strikes Back,,empire strikes back,5
+The Exorcist,,exorcist,5
+The Florida Project,,florida project,5
+The French Dispatch,,french dispatch,5
+The Godfather,,godfather,5
+The Greatest Showman,,greatest showman,5
+The Grinch,,grinch,5
+The Hateful Eight,,hateful eight,5
+The Hunger Games: Catching Fire,,hunger games catching fire,5
+The Hunger Games: Mockingjay – Part 1,,hunger games mockingjay part 1,5
+The Hunger Games: Mockingjay – Part 2,,hunger games mockingjay part 2,5
+The Irishman,2019.0,irishman,5
+The Iron Claw,2023.0,iron claw,5
+The King of Comedy,,king of comedy,5
+The Lego Batman Movie,,lego batman movie,5
+The Nightmare Before Christmas,,nightmare before christmas,5
+The Northman,,northman,5
+The Princess Bride,,princess bride,5
+The Revenant,2015.0,revenant,5
+The Royal Tenenbaums,,royal tenenbaums,5
+The Sixth Sense,,sixth sense,5
+The Suicide Squad,,suicide squad,5
+The Super Mario Bros. Movie,,super mario bros movie,5
+The Swan,2023.0,swan,5
+The Texas Chain Saw Massacre,,texas chain saw massacre,5
+The Whale,2022.0,whale,5
+The Wild Robot,,wild robot,5
+The Witch,2015.0,witch,5
+The Wolf of Wall Street,,wolf of wall street,5
+The Worst Person in the World,,worst person in world,5
+There Will Be Blood,,there will be blood,5
+Thor,,thor,5
+Thor: The Dark World,,thor dark world,5
+Titanic,1997.0,titanic,5
+Top Gun,,top gun,5
+Toy Story,,toy story,5
+Toy Story 2,,toy story 2,5
+Toy Story 3,,toy story 3,5
+Trainspotting,,trainspotting,5
+Triangle of Sadness,,triangle of sadness,5
+Turning Red,,turning red,5
+Twilight,2008.0,twilight,5
+TÁR,2022.0,tr,5
+Venom,2018.0,venom,5
+Vertigo,,vertigo,5
+WALL·E,,walle,5
+Wallace & Gromit: Vengeance Most Fowl,,wallace gromit vengeance most fowl,5
+WandaVision,,wandavision,5
+What We Do in the Shadows,,what we do in shadows,5
+When Harry Met Sally...,,when harry met sally,5
+Wicked,2024.0,wicked,5
+X,2022.0,x,5
+X-Men: Days of Future Past,,xmen days of future past,5
+Y Tu Mamá También,,y tu mam tambin,5
+Zodiac,,zodiac,5
+"tick, tick... BOOM!",2021.0,tick tick boom,5

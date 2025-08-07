@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+
+<html id="html" lang="en" class="context-client-unknown no-mobile no-js">
+<head>
+	<meta charset="UTF-8" />
+	
+	
+			
+		
+	<meta name="viewport" content="width=1024" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="description" content="Popular members" />
+	
+	
+	<meta property="og:url" content="https://letterboxd.com/members/popular/this/week/" />
+	<meta property="og:title" content="Popular members" />
+	<meta property="og:description" content="Popular members" />
+	<meta property="og:image" content="https://s.ltrbxd.com/static/img/default-share-7md9L34t.png" />
+	<meta property="fb:app_id" content="173683136069040" />
+	
+	<meta name="application-name" content="Letterboxd" />
+	<meta name="theme-color" content="#14181C" />
+	<meta name="msapplication-TileColor" content="#445566" />
+	<meta name="apple-itunes-app" content="app-id=1054271011, affiliate-data=11l5KW" />
+	<meta name="mobile-web-app-capable" content="yes" />
+
+	<title>&lrm;Popular members &bull; Letterboxd</title>
+	<script>
+		
+		((r, n) => {
+			r.dataset.useragent = n.userAgent
+			r.dataset.platform = n.platform
+		})(document.documentElement, navigator)
+
+		var isMobile = false,
+			isMobileOptimised = true,
+			renderMobile = false,
+			useStaticFonts = false,
+			disableFrameProtection = false,
+			baseURL = '',
+			staticAssetBaseURL = 'https://s.ltrbxd.com/'.slice(0, -1),
+			successMessages = [],
+			errorMessages = [],
+			stickyMessages = [],
+			globals = {
+			autoAddFilm: false
+				, spinners: {
+					ajax_242d35: 'https://s.ltrbxd.com/static/img/spinner-dark-2x-BA9SNVrD.gif',
+					spinner_12_2C3641: 'https://s.ltrbxd.com/static/img/spinner-dark-2x-BA9SNVrD.gif',
+					spinner_14_20272f: 'https://s.ltrbxd.com/static/img/spinner-dark-2x-BA9SNVrD.gif',
+					spinner_16_161B21: 'https://s.ltrbxd.com/static/img/spinner-dark-2x-BA9SNVrD.gif'
+				}
+			},
+			supermodelCSRF = "",
+			gRecaptchaKey = '6Le3mMIUAAAAAEXbwZ7M1R5jEv0V5xbvj7bgXq2g',
+			geolocation = {
+				country: ""
+			},
+			person = {
+				username: ""
+				, loggedIn: false
+				
+				, showAds: true
+				, role: "guest"
+				, hasExtendedServiceFilters: false
+				, canBulkAddToLists: false
+				, canFilterOwned: false
+				, hasHqRole: false
+				, canHaveHqDashboard: false
+				, hasMemberStatistics: false
+				, blockedMembers: []
+				, showAdultContent: false
+				, validated: null
+				, trusted: false
+				, hasBlocked : function(member) { for (var i = 0; i !== person.blockedMembers.length; i++) {if (person.blockedMembers[i] === member) return true;} return false; }
+				, viewingTags: []
+				, hasMoreTags: true
+				, getCustomPoster : function(uid) { return null; }
+				, getCustomBackdrop : function(uid) { return null; }
+			},
+			disableAds = false,
+			analytic_params = {};
+		
+		
+supermodelCSRF = '2ede0e40658fbe6d7393'; geolocation.country = 'US'; analytic_params['user_type'] = 'Visitor';
+
+	</script>
+	
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		window.gtag = window.gtag || function () {
+			dataLayer.push(arguments);
+		};
+		function ga() {}
+	</script>
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-D3ECBB4D7L"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		window.gtag = window.gtag || function () {
+			dataLayer.push(arguments);
+		};
+		gtag('js', new Date());
+	
+		analytic_params['template'] = '/object/popular/people';
+		
+		
+
+		if (analytic_params.member_type) {
+			gtag('set', 'user_properties', { 
+				member_type: analytic_params.member_type,
+			});
+			delete analytic_params.member_type;
+		}
+		var config = {
+			...analytic_params,
+			'cookie_domain': 'letterboxd.com', 
+			'optimize_id': 'GTM-TB8HSDN', 
+		};
+		gtag('config', 'G-D3ECBB4D7L', config);
+	</script>
+
+
+	
+<script>
+function ASAP(callback) {
+	if (window.__ASAPPED) {
+		callback()
+		return
+	}
+	if (!window.__ASAP) {
+		window.__ASAP = []
+	}
+	window.__ASAP.push(callback)
+}
+</script>
+
+	<script>
+		
+
+		
+			
+		
+
+		
+
+		
+		
+			
+			  function setUseMobileSiteCookie(useMobile) {
+					const value = useMobile ? 'yes' : 'no'
+					const date = new Date()
+					const maxAge = 365 * 24 * 60 * 60
+					date.setTime(date.getTime() + maxAge * 1000)
+					const expires = '; expires=' + date.toUTCString()
+					const cookieValuePair = 'useMobileSite=' + value
+					document.cookie = cookieValuePair + expires + '; path=/; maxAge=' + maxAge
+
+					if (document.cookie.includes(cookieValuePair)) {
+						window.location.reload(true)
+					} else {
+						console.error('Failed to set useMobileSite cookie.')
+					}
+				}
+
+				/*
+				 * If ?fromApp=true, it's possible for user is already in the correct mode, so only try
+				 * reloading if that's the case. In fact, trying to reload the page regardless causes an 
+				 * infinite loop as the ?fromApp=true parameter is always present.
+				 */
+				const isMobileWidth = screen.width < 768
+				if (isMobileWidth && !document.cookie.includes('useMobileSite=yes')) {
+					setUseMobileSiteCookie(true)
+				} else if (!isMobileWidth && !document.cookie.includes('u

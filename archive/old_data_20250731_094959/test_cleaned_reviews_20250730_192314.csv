@@ -1,0 +1,453 @@
+username,title,year,rating,film_slug,tmdb_id
+kurstboy,Superman,2025.0,0.0,superman-2025,1061474
+kurstboy,F1,,0.0,f1,911430
+kurstboy,Elio,,0.0,elio,1022787
+kurstboy,Materialists,,0.0,materialists,1136867
+kurstboy,How to Train Your Dragon,2025.0,0.0,how-to-train-your-dragon-2025,1087192
+kurstboy,The Phoenician Scheme,,0.0,the-phoenician-scheme,1137350
+kurstboy,Eddington,,0.0,eddington,648878
+kurstboy,Mission: Impossible – The Final Reckoning,,0.0,mission-impossible-the-final-reckoning,575265
+kurstboy,Thunderbolts*,,0.0,thunderbolts,986056
+kurstboy,Sinners,2025.0,0.0,sinners-2025,1233413
+kurstboy,A Minecraft Movie,,0.0,a-minecraft-movie,950387
+kurstboy,Adolescence,2025.0,0.0,adolescence-2025,1478143
+kurstboy,Warfare,,0.0,warfare,1241436
+kurstboy,Black Bag,2025.0,0.0,black-bag-2025,1233575
+kurstboy,The Monkey,2025.0,0.0,the-monkey-2025,1124620
+kurstboy,Mickey 17,,0.0,mickey-17,696506
+kurstboy,Opus,2025.0,0.0,opus-2025,1202479
+kurstboy,A Complete Unknown,,0.0,a-complete-unknown,661539
+kurstboy,Wallace & Gromit: Vengeance Most Fowl,,0.0,wallace-gromit-vengeance-most-fowl,929204
+kurstboy,Carry-On,2024.0,0.0,carry-on-2024,1005331
+kurstboy,Nosferatu,2024.0,0.0,nosferatu-2024,426063
+kurstboy,Wicked,2024.0,0.0,wicked-2024,402431
+kurstboy,Juror #2,,0.0,juror-2,1106739
+kurstboy,Gladiator II,,0.0,gladiator-ii,558449
+kurstboy,Friendship,2024.0,0.0,friendship-2024,1239655
+kurstboy,Heretic,2024.0,0.0,heretic-2024,1138194
+kurstboy,The Wild Robot,,0.0,the-wild-robot,1184918
+schaffrillas,Superman,2025.0,0.0,superman-2025,1061474
+schaffrillas,Elio,,0.0,elio,1022787
+schaffrillas,The Phoenician Scheme,,0.0,the-phoenician-scheme,1137350
+schaffrillas,Mission: Impossible – The Final Reckoning,,0.0,mission-impossible-the-final-reckoning,575265
+schaffrillas,Sinners,2025.0,0.0,sinners-2025,1233413
+schaffrillas,A Minecraft Movie,,0.0,a-minecraft-movie,950387
+schaffrillas,A Complete Unknown,,0.0,a-complete-unknown,661539
+schaffrillas,Sonic the Hedgehog 3,,0.0,sonic-the-hedgehog-3,939243
+schaffrillas,Wallace & Gromit: Vengeance Most Fowl,,0.0,wallace-gromit-vengeance-most-fowl,929204
+schaffrillas,Nosferatu,2024.0,0.0,nosferatu-2024,426063
+schaffrillas,Wicked,2024.0,0.0,wicked-2024,402431
+schaffrillas,Juror #2,,0.0,juror-2,1106739
+schaffrillas,The Wild Robot,,0.0,the-wild-robot,1184918
+schaffrillas,Joker: Folie à Deux,,0.0,joker-folie-a-deux,889737
+schaffrillas,Conclave,,0.0,conclave,974576
+schaffrillas,Flow,2024.0,0.0,flow-2024,608149
+schaffrillas,Anora,,0.0,anora,1064213
+schaffrillas,The Substance,,0.0,the-substance,933260
+jay,The Phoenician Scheme,,0.0,the-phoenician-scheme,1137350
+jay,Bring Her Back,,0.0,bring-her-back,1151031
+jay,Mission: Impossible – The Final Reckoning,,0.0,mission-impossible-the-final-reckoning,575265
+jay,Final Destination Bloodlines,,0.0,final-destination-bloodlines,574475
+jay,A Minecraft Movie,,0.0,a-minecraft-movie,950387
+jay,The Monkey,2025.0,0.0,the-monkey-2025,1124620
+jay,Mickey 17,,0.0,mickey-17,696506
+jay,Bridget Jones: Mad About the Boy,,0.0,bridget-jones-mad-about-the-boy,1272149
+jay,A Complete Unknown,,0.0,a-complete-unknown,661539
+jay,Sonic the Hedgehog 3,,0.0,sonic-the-hedgehog-3,939243
+jay,Wallace & Gromit: Vengeance Most Fowl,,0.0,wallace-gromit-vengeance-most-fowl,929204
+jay,Nosferatu,2024.0,0.0,nosferatu-2024,426063
+jay,Wicked,2024.0,0.0,wicked-2024,402431
+jay,Smile 2,2024.0,0.0,smile-2-2024,1100782
+jay,We Live in Time,,0.0,we-live-in-time,1100099
+jay,Joker: Folie à Deux,,0.0,joker-folie-a-deux,889737
+jay,Queer,2024.0,0.0,queer-2024,1059128
+jay,Conclave,,0.0,conclave,974576
+jay,Flow,2024.0,0.0,flow-2024,608149
+jay,Anora,,0.0,anora,1064213
+jay,The Substance,,0.0,the-substance,933260
+deathproof,Superman,2025.0,0.0,superman-2025,1061474
+deathproof,Materialists,,0.0,materialists,1136867
+deathproof,Bring Her Back,,0.0,bring-her-back,1151031
+deathproof,Final Destination Bloodlines,,0.0,final-destination-bloodlines,574475
+deathproof,Sinners,2025.0,0.0,sinners-2025,1233413
+deathproof,Novocaine,2025.0,0.0,novocaine-2025,1195506
+deathproof,The Monkey,2025.0,0.0,the-monkey-2025,1124620
+deathproof,Mickey 17,,0.0,mickey-17,696506
+deathproof,Companion,2025.0,0.0,companion-2025,1084199
+deathproof,A Complete Unknown,,0.0,a-complete-unknown,661539
+deathproof,Nosferatu,2024.0,0.0,nosferatu-2024,426063
+deathproof,Paddington in Peru,,0.0,paddington-in-peru,516729
+deathproof,Wicked,2024.0,0.0,wicked-2024,402431
+deathproof,Smile 2,2024.0,0.0,smile-2-2024,1100782
+deathproof,Heretic,2024.0,0.0,heretic-2024,1138194
+deathproof,The Wild Robot,,0.0,the-wild-robot,1184918
+deathproof,The Last Showgirl,,0.0,the-last-showgirl,1235499
+deathproof,Queer,2024.0,0.0,queer-2024,1059128
+deathproof,Conclave,,0.0,conclave,974576
+deathproof,Flow,2024.0,0.0,flow-2024,608149
+deathproof,Anora,,0.0,anora,1064213
+deathproof,The Substance,,0.0,the-substance,933260
+davidehrlich,The Fantastic Four: First Steps,,0.0,the-fantastic-four-first-steps,1516738
+davidehrlich,Superman,2025.0,0.0,superman-2025,1061474
+davidehrlich,28 Years Later,,0.0,28-years-later,1100988
+davidehrlich,Jurassic World Rebirth,,0.0,jurassic-world-rebirth,1234821
+davidehrlich,F1,,0.0,f1,911430
+davidehrlich,Elio,,0.0,elio,1022787
+davidehrlich,Materialists,,0.0,materialists,1136867
+davidehrlich,Ballerina,2025.0,0.0,ballerina-2025,541671
+davidehrlich,The Phoenician Scheme,,0.0,the-phoenician-scheme,1137350
+davidehrlich,Eddington,,0.0,eddington,648878
+davidehrlich,Bring Her Back,,0.0,bring-her-back,1151031
+davidehrlich,Mission: Impossible – The Final Reckoning,,0.0,mission-impossible-the-final-reckoning,575265
+davidehrlich,Final Destination Bloodlines,,0.0,final-destination-bloodlines,574475
+davidehrlich,Havoc,2025.0,0.0,havoc-2025,668489
+davidehrlich,Thunderbolts*,,0.0,thunderbolts,986056
+thejoshl,Superman,2025.0,0.0,superman-2025,1061474
+thejoshl,28 Years Later,,0.0,28-years-later,1100988
+thejoshl,Jurassic World Rebirth,,0.0,jurassic-world-rebirth,1234821
+thejoshl,F1,,0.0,f1,911430
+thejoshl,Ballerina,2025.0,0.0,ballerina-2025,541671
+thejoshl,The Phoenician Scheme,,0.0,the-phoenician-scheme,1137350
+thejoshl,Eddington,,0.0,eddington,648878
+thejoshl,Bring Her Back,,0.0,bring-her-back,1151031
+thejoshl,Mission: Impossible – The Final Reckoning,,0.0,mission-impossible-the-final-reckoning,575265
+thejoshl,Final Destination Bloodlines,,0.0,final-destination-bloodlines,574475
+thejoshl,Havoc,2025.0,0.0,havoc-2025,668489
+thejoshl,Sinners,2025.0,0.0,sinners-2025,1233413
+thejoshl,A Minecraft Movie,,0.0,a-minecraft-movie,950387
+thejoshl,A Working Man,,0.0,a-working-man,1197306
+thejoshl,Adolescence,2025.0,0.0,adolescence-2025,1478143
+thejoshl,Warfare,,0.0,warfare,1241436
+thejoshl,Novocaine,2025.0,0.0,novocaine-2025,1195506
+thejoshl,Black Bag,2025.0,0.0,black-bag-2025,1233575
+thejoshl,The Monkey,2025.0,0.0,the-monkey-2025,1124620
+thejoshl,Mickey 17,,0.0,mickey-17,696506
+thejoshl,Captain America: Brave New World,,0.0,captain-america-brave-new-world,822119
+thejoshl,Opus,2025.0,0.0,opus-2025,1202479
+thejoshl,Companion,2025.0,0.0,companion-2025,1084199
+thejoshl,A Complete Unknown,,0.0,a-complete-unknown,661539
+thejoshl,Carry-On,2024.0,0.0,carry-on-2024,1005331
+thejoshl,Nosferatu,2024.0,0.0,nosferatu-2024,426063
+thejoshl,Wicked,2024.0,0.0,wicked-2024,402431
+ingridgoeswest,The Fantastic Four: First Steps,,0.0,the-fantastic-four-first-steps,1516738
+ingridgoeswest,Materialists,,0.0,materialists,1136867
+ingridgoeswest,Bring Her Back,,0.0,bring-her-back,1151031
+ingridgoeswest,Final Destination Bloodlines,,0.0,final-destination-bloodlines,574475
+ingridgoeswest,Sinners,2025.0,0.0,sinners-2025,1233413
+ingridgoeswest,Adolescence,2025.0,0.0,adolescence-2025,1478143
+ingridgoeswest,Companion,2025.0,0.0,companion-2025,1084199
+ingridgoeswest,Sonic the Hedgehog 3,,0.0,sonic-the-hedgehog-3,939243
+ingridgoeswest,Nosferatu,2024.0,0.0,nosferatu-2024,426063
+ingridgoeswest,Juror #2,,0.0,juror-2,1106739
+ingridgoeswest,Heretic,2024.0,0.0,heretic-2024,1138194
+ingridgoeswest,We Live in Time,,0.0,we-live-in-time,1100099
+ingridgoeswest,Joker: Folie à Deux,,0.0,joker-folie-a-deux,889737
+ingridgoeswest,Queer,2024.0,0.0,queer-2024,1059128
+ingridgoeswest,Anora,,0.0,anora,1064213
+ingridgoeswest,The Substance,,0.0,the-substance,933260
+silentdawn,The Fantastic Four: First Steps,,0.0,the-fantastic-four-first-steps,1516738
+silentdawn,Superman,2025.0,0.0,superman-2025,1061474
+silentdawn,28 Years Later,,0.0,28-years-later,1100988
+silentdawn,Jurassic World Rebirth,,0.0,jurassic-world-rebirth,1234821
+silentdawn,Materialists,,0.0,materialists,1136867
+silentdawn,The Phoenician Scheme,,0.0,the-phoenician-scheme,1137350
+silentdawn,Eddington,,0.0,eddington,648878
+silentdawn,Mission: Impossible – The Final Reckoning,,0.0,mission-impossible-the-final-reckoning,575265
+silentdawn,Final Destination Bloodlines,,0.0,final-destination-bloodlines,574475
+silentdawn,Sinners,2025.0,0.0,sinners-2025,1233413
+silentdawn,A Minecraft Movie,,0.0,a-minecraft-movie,950387
+silentdawn,Warfare,,0.0,warfare,1241436
+silentdawn,Black Bag,2025.0,0.0,black-bag-2025,1233575
+silentdawn,The Monkey,2025.0,0.0,the-monkey-2025,1124620
+silentdawn,Mickey 17,,0.0,mickey-17,696506
+silentdawn,Bridget Jones: Mad About the Boy,,0.0,bridget-jones-mad-about-the-boy,1272149
+silentdawn,Companion,2025.0,0.0,companion-2025,1084199
+silentdawn,A Complete Unknown,,0.0,a-complete-unknown,661539
+silentdawn,Nosferatu,2024.0,0.0,nosferatu-2024,426063
+silentdawn,Paddington in Peru,,0.0,paddington-in-peru,516729
+silentdawn,Wicked,2024.0,0.0,wicked-2024,402431
+silentdawn,Juror #2,,0.0,juror-2,1106739
+silentdawn,Gladiator II,,0.0,gladiator-ii,558449
+silentdawn,Smile 2,2024.0,0.0,smile-2-2024,1100782
+silentdawn,Friendship,2024.0,0.0,friendship-2024,1239655
+silentdawn,Heretic,2024.0,0.0,heretic-2024,1138194
+colonelmortimer,The Fantastic Four: First Steps,,0.0,the-fantastic-four-first-steps,1516738
+colonelmortimer,Superman,2025.0,0.0,superman-2025,1061474
+colonelmortimer,28 Years Later,,0.0,28-years-later,1100988
+colonelmortimer,Jurassic World Rebirth,,0.0,jurassic-world-rebirth,1234821
+colonelmortimer,F1,,0.0,f1,911430
+colonelmortimer,Materialists,,0.0,materialists,1136867
+colonelmortimer,Ballerina,2025.0,0.0,ballerina-2025,541671
+colonelmortimer,The Phoenician Scheme,,0.0,the-phoenician-scheme,1137350
+colonelmortimer,Eddington,,0.0,eddington,648878
+colonelmortimer,Mission: Impossible – The Final Reckoning,,0.0,mission-impossible-the-final-reckoning,575265
+colonelmortimer,Final Destination Bloodlines,,0.0,final-destination-bloodlines,574475
+colonelmortimer,Havoc,2025.0,0.0,havoc-2025,668489
+colonelmortimer,Thunderbolts*,,0.0,thunderbolts,986056
+colonelmortimer,Sinners,2025.0,0.0,sinners-2025,1233413
+colonelmortimer,A Working Man,,0.0,a-working-man,1197306
+colonelmortimer,Warfare,,0.0,warfare,1241436
+colonelmortimer,Black Bag,2025.0,0.0,black-bag-2025,1233575
+colonelmortimer,The Monkey,2025.0,0.0,the-monkey-2025,1124620
+colonelmortimer,Mickey 17,,0.0,mickey-17,696506
+colonelmortimer,Captain America: Brave New World,,0.0,captain-america-brave-new-world,822119
+colonelmortimer,Opus,2025.0,0.0,opus-2025,1202479
+colonelmortimer,A Complete Unknown,,0.0,a-complete-unknown,661539
+colonelmortimer,Wallace & Gromit: Vengeance Most Fowl,,0.0,wallace-gromit-vengeance-most-fowl,929204
+colonelmortimer,Nosferatu,2024.0,0.0,nosferatu-2024,426063
+colonelmortimer,Wicked,2024.0,0.0,wicked-2024,402431
+colonelmortimer,Juror #2,,0.0,juror-2,1106739
+colonelmortimer,Gladiator II,,0.0,gladiator-ii,558449
+colonelmortimer,Friendship,2024.0,0.0,friendship-2024,1239655
+colonelmortimer,Heretic,2024.0,0.0,heretic-2024,1138194
+framesofnick,The Fantastic Four: First Steps,,0.0,the-fantastic-four-first-steps,1516738
+framesofnick,Superman,2025.0,0.0,superman-2025,1061474
+framesofnick,28 Years Later,,0.0,28-years-later,1100988
+framesofnick,Materialists,,0.0,materialists,1136867
+framesofnick,Ballerina,2025.0,0.0,ballerina-2025,541671
+framesofnick,The Phoenician Scheme,,0.0,the-phoenician-scheme,1137350
+framesofnick,Bring Her Back,,0.0,bring-her-back,1151031
+framesofnick,Mission: Impossible – The Final Reckoning,,0.0,mission-impossible-the-final-reckoning,575265
+framesofnick,Final Destination Bloodlines,,0.0,final-destination-bloodlines,574475
+framesofnick,Thunderbolts*,,0.0,thunderbolts,986056
+framesofnick,Sinners,2025.0,0.0,sinners-2025,1233413
+framesofnick,A Minecraft Movie,,0.0,a-minecraft-movie,950387
+framesofnick,Novocaine,2025.0,0.0,novocaine-2025,1195506
+framesofnick,Black Bag,2025.0,0.0,black-bag-2025,1233575
+framesofnick,Mickey 17,,0.0,mickey-17,696506
+framesofnick,Companion,2025.0,0.0,companion-2025,1084199
+framesofnick,Sonic the Hedgehog 3,,0.0,sonic-the-hedgehog-3,939243
+framesofnick,Wallace & Gromit: Vengeance Most Fowl,,0.0,wallace-gromit-vengeance-most-fowl,929204
+framesofnick,Nosferatu,2024.0,0.0,nosferatu-2024,426063
+framesofnick,Wicked,2024.0,0.0,wicked-2024,402431
+framesofnick,Gladiator II,,0.0,gladiator-ii,558449
+framesofnick,Friendship,2024.0,0.0,friendship-2024,1239655
+framesofnick,Heretic,2024.0,0.0,heretic-2024,1138194
+framesofnick,The Wild Robot,,0.0,the-wild-robot,1184918
+framesofnick,The Last Showgirl,,0.0,the-last-showgirl,1235499
+framesofnick,We Live in Time,,0.0,we-live-in-time,1100099
+framesofnick,Joker: Folie à Deux,,0.0,joker-folie-a-deux,889737
+framesofnick,Queer,2024.0,0.0,queer-2024,1059128
+suspirliam,The Fantastic Four: First Steps,,0.0,the-fantastic-four-first-steps,1516738
+suspirliam,Superman,2025.0,0.0,superman-2025,1061474
+suspirliam,F1,,0.0,f1,911430
+suspirliam,Materialists,,0.0,materialists,1136867
+suspirliam,The Phoenician Scheme,,0.0,the-phoenician-scheme,1137350
+suspirliam,Bring Her Back,,0.0,bring-her-back,1151031
+suspirliam,Thunderbolts*,,0.0,thunderbolts,986056
+suspirliam,Sinners,2025.0,0.0,sinners-2025,1233413
+suspirliam,The Monkey,2025.0,0.0,the-monkey-2025,1124620
+suspirliam,Mickey 17,,0.0,mickey-17,696506
+suspirliam,Captain America: Brave New World,,0.0,captain-america-brave-new-world,822119
+suspirliam,Opus,2025.0,0.0,opus-2025,1202479
+suspirliam,Companion,2025.0,0.0,companion-2025,1084199
+suspirliam,A Complete Unknown,,0.0,a-complete-unknown,661539
+suspirliam,Wallace & Gromit: Vengeance Most Fowl,,0.0,wallace-gromit-vengeance-most-fowl,929204
+suspirliam,Nosferatu,2024.0,0.0,nosferatu-2024,426063
+suspirliam,Wicked,2024.0,0.0,wicked-2024,402431
+suspirliam,Juror #2,,0.0,juror-2,1106739
+suspirliam,Smile 2,2024.0,0.0,smile-2-2024,1100782
+suspirliam,Friendship,2024.0,0.0,friendship-2024,1239655
+suspirliam,Heretic,2024.0,0.0,heretic-2024,1138194
+suspirliam,The Wild Robot,,0.0,the-wild-robot,1184918
+suspirliam,The Last Showgirl,,0.0,the-last-showgirl,1235499
+suspirliam,We Live in Time,,0.0,we-live-in-time,1100099
+superpulse,The Fantastic Four: First Steps,,0.0,the-fantastic-four-first-steps,1516738
+superpulse,Superman,2025.0,0.0,superman-2025,1061474
+superpulse,28 Years Later,,0.0,28-years-later,1100988
+superpulse,Jurassic World Rebirth,,0.0,jurassic-world-rebirth,1234821
+superpulse,F1,,0.0,f1,911430
+superpulse,Elio,,0.0,elio,1022787
+superpulse,How to Train Your Dragon,2025.0,0.0,how-to-train-your-dragon-2025,1087192
+superpulse,Ballerina,2025.0,0.0,ballerina-2025,541671
+superpulse,Mission: Impossible – The Final Reckoning,,0.0,mission-impossible-the-final-reckoning,575265
+superpulse,Final Destination Bloodlines,,0.0,final-destination-bloodlines,574475
+superpulse,Thunderbolts*,,0.0,thunderbolts,986056
+superpulse,Sinners,2025.0,0.0,sinners-2025,1233413
+superpulse,A Minecraft Movie,,0.0,a-minecraft-movie,950387
+superpulse,Novocaine,2025.0,0.0,novocaine-2025,1195506
+superpulse,Black Bag,2025.0,0.0,black-bag-2025,1233575
+superpulse,The Monkey,2025.0,0.0,the-monkey-2025,1124620
+superpulse,Mickey 17,,0.0,mickey-17,696506
+superpulse,Captain America: Brave New World,,0.0,captain-america-brave-new-world,822119
+superpulse,Opus,2025.0,0.0,opus-2025,1202479
+superpulse,Companion,2025.0,0.0,companion-2025,1084199
+superpulse,Sonic the Hedgehog 3,,0.0,sonic-the-hedgehog-3,939243
+superpulse,A Complete Unknown,,0.0,a-complete-unknown,661539
+superpulse,Wallace & Gromit: Vengeance Most Fowl,,0.0,wallace-gromit-vengeance-most-fowl,929204
+superpulse,Nosferatu,2024.0,0.0,nosferatu-2024,426063
+aarnwlsn,28 Years Later,,0.0,28-years-later,1100988
+aarnwlsn,Jurassic World Rebirth,,0.0,jurassic-world-rebirth,1234821
+aarnwlsn,F1,,0.0,f1,911430
+aarnwlsn,The Phoenician Scheme,,0.0,the-phoenician-scheme,1137350
+aarnwlsn,Final Destination Bloodlines,,0.0,final-destination-bloodlines,574475
+aarnwlsn,Sinners,2025.0,0.0,sinners-2025,1233413
+aarnwlsn,Adolescence,2025.0,0.0,adolescence-2025,1478143
+aarnwlsn,Warfare,,0.0,warfare,1241436
+aarnwlsn,The Monkey,2025.0,0.0,the-monkey-2025,1124620
+aarnwlsn,Bridget Jones: Mad About the Boy,,0.0,bridget-jones-mad-about-the-boy,1272149
+aarnwlsn,Companion,2025.0,0.0,companion-2025,1084199
+aarnwlsn,A Complete Unknown,,0.0,a-complete-unknown,661539
+aarnwlsn,Carry-On,2024.0,0.0,carry-on-2024,1005331
+aarnwlsn,Nosferatu,2024.0,0.0,nosferatu-2024,426063
+aarnwlsn,Paddington in Peru,,0.0,paddington-in-peru,516729
+aarnwlsn,Gladiator II,,0.0,gladiator-ii,558449
+aarnwlsn,Heretic,2024.0,0.0,heretic-2024,1138194
+aarnwlsn,The Last Showgirl,,0.0,the-last-showgirl,1235499
+aarnwlsn,Joker: Folie à Deux,,0.0,joker-folie-a-deux,889737
+aarnwlsn,Conclave,,0.0,conclave,974576
+davidlsims,The Fantastic Four: First Steps,,0.0,the-fantastic-four-first-steps,1516738
+davidlsims,Superman,2025.0,0.0,superman-2025,1061474
+davidlsims,28 Years Later,,0.0,28-years-later,1100988
+davidlsims,Jurassic World Rebirth,,0.0,jurassic-world-rebirth,1234821
+davidlsims,F1,,0.0,f1,911430
+davidlsims,Elio,,0.0,elio,1022787
+davidlsims,Materialists,,0.0,materialists,1136867
+davidlsims,How to Train Your Dragon,2025.0,0.0,how-to-train-your-dragon-2025,1087192
+davidlsims,Ballerina,2025.0,0.0,ballerina-2025,541671
+davidlsims,The Phoenician Scheme,,0.0,the-phoenician-scheme,1137350
+davidlsims,Eddington,,0.0,eddington,648878
+davidlsims,Bring Her Back,,0.0,bring-her-back,1151031
+davidlsims,Mission: Impossible – The Final Reckoning,,0.0,mission-impossible-the-final-reckoning,575265
+davidlsims,Final Destination Bloodlines,,0.0,final-destination-bloodlines,574475
+davidlsims,Thunderbolts*,,0.0,thunderbolts,986056
+davidlsims,Sinners,2025.0,0.0,sinners-2025,1233413
+davidlsims,A Minecraft Movie,,0.0,a-minecraft-movie,950387
+davidlsims,A Working Man,,0.0,a-working-man,1197306
+davidlsims,Novocaine,2025.0,0.0,novocaine-2025,1195506
+davidlsims,Warfare,,0.0,warfare,1241436
+davidlsims,Black Bag,2025.0,0.0,black-bag-2025,1233575
+davidlsims,The Monkey,2025.0,0.0,the-monkey-2025,1124620
+davidlsims,Mickey 17,,0.0,mickey-17,696506
+davidlsims,Captain America: Brave New World,,0.0,captain-america-brave-new-world,822119
+davidlsims,Bridget Jones: Mad About the Boy,,0.0,bridget-jones-mad-about-the-boy,1272149
+davidlsims,Opus,2025.0,0.0,opus-2025,1202479
+zoerosebryant,The Fantastic Four: First Steps,,0.0,the-fantastic-four-first-steps,1516738
+zoerosebryant,Superman,2025.0,0.0,superman-2025,1061474
+zoerosebryant,28 Years Later,,0.0,28-years-later,1100988
+zoerosebryant,Jurassic World Rebirth,,0.0,jurassic-world-rebirth,1234821
+zoerosebryant,F1,,0.0,f1,911430
+zoerosebryant,Elio,,0.0,elio,1022787
+zoerosebryant,Materialists,,0.0,materialists,1136867
+zoerosebryant,How to Train Your Dragon,2025.0,0.0,how-to-train-your-dragon-2025,1087192
+zoerosebryant,Ballerina,2025.0,0.0,ballerina-2025,541671
+zoerosebryant,The Phoenician Scheme,,0.0,the-phoenician-scheme,1137350
+zoerosebryant,Eddington,,0.0,eddington,648878
+zoerosebryant,Bring Her Back,,0.0,bring-her-back,1151031
+zoerosebryant,Mission: Impossible – The Final Reckoning,,0.0,mission-impossible-the-final-reckoning,575265
+zoerosebryant,Final Destination Bloodlines,,0.0,final-destination-bloodlines,574475
+zoerosebryant,Thunderbolts*,,0.0,thunderbolts,986056
+zoerosebryant,Sinners,2025.0,0.0,sinners-2025,1233413
+zoerosebryant,A Minecraft Movie,,0.0,a-minecraft-movie,950387
+zoerosebryant,A Working Man,,0.0,a-working-man,1197306
+zoerosebryant,Adolescence,2025.0,0.0,adolescence-2025,1478143
+zoerosebryant,Warfare,,0.0,warfare,1241436
+zoerosebryant,Novocaine,2025.0,0.0,novocaine-2025,1195506
+zoerosebryant,Black Bag,2025.0,0.0,black-bag-2025,1233575
+zoerosebryant,The Monkey,2025.0,0.0,the-monkey-2025,1124620
+zoerosebryant,Mickey 17,,0.0,mickey-17,696506
+zoerosebryant,Captain America: Brave New World,,0.0,captain-america-brave-new-world,822119
+zoerosebryant,Opus,2025.0,0.0,opus-2025,1202479
+zoerosebryant,Companion,2025.0,0.0,companion-2025,1084199
+zoerosebryant,A Complete Unknown,,0.0,a-complete-unknown,661539
+zoerosebryant,Sonic the Hedgehog 3,,0.0,sonic-the-hedgehog-3,939243
+zoerosebryant,Wallace & Gromit: Vengeance Most Fowl,,0.0,wallace-gromit-vengeance-most-fowl,929204
+zoerosebryant,Carry-On,2024.0,0.0,carry-on-2024,1005331
+zoerosebryant,Nosferatu,2024.0,0.0,nosferatu-2024,426063
+jaragon23,The Fantastic Four: First Steps,,0.0,the-fantastic-four-first-steps,1516738
+jaragon23,Superman,2025.0,0.0,superman-2025,1061474
+jaragon23,28 Years Later,,0.0,28-years-later,1100988
+jaragon23,Jurassic World Rebirth,,0.0,jurassic-world-rebirth,1234821
+jaragon23,F1,,0.0,f1,911430
+jaragon23,Elio,,0.0,elio,1022787
+jaragon23,How to Train Your Dragon,2025.0,0.0,how-to-train-your-dragon-2025,1087192
+jaragon23,Ballerina,2025.0,0.0,ballerina-2025,541671
+jaragon23,The Phoenician Scheme,,0.0,the-phoenician-scheme,1137350
+jaragon23,Bring Her Back,,0.0,bring-her-back,1151031
+jaragon23,Mission: Impossible – The Final Reckoning,,0.0,mission-impossible-the-final-reckoning,575265
+jaragon23,Final Destination Bloodlines,,0.0,final-destination-bloodlines,574475
+jaragon23,Havoc,2025.0,0.0,havoc-2025,668489
+jaragon23,Thunderbolts*,,0.0,thunderbolts,986056
+jaragon23,Sinners,2025.0,0.0,sinners-2025,1233413
+jaragon23,A Minecraft Movie,,0.0,a-minecraft-movie,950387
+jaragon23,A Working Man,,0.0,a-working-man,1197306
+jaragon23,Novocaine,2025.0,0.0,novocaine-2025,1195506
+jaragon23,Black Bag,2025.0,0.0,black-bag-2025,1233575
+brat,28 Years Later,,0.0,28-years-later,1100988
+brat,The Phoenician Scheme,,0.0,the-phoenician-scheme,1137350
+brat,Mission: Impossible – The Final Reckoning,,0.0,mission-impossible-the-final-reckoning,575265
+brat,Final Destination Bloodlines,,0.0,final-destination-bloodlines,574475
+brat,Sinners,2025.0,0.0,sinners-2025,1233413
+brat,Black Bag,2025.0,0.0,black-bag-2025,1233575
+brat,Mickey 17,,0.0,mickey-17,696506
+brat,Bridget Jones: Mad About the Boy,,0.0,bridget-jones-mad-about-the-boy,1272149
+brat,A Complete Unknown,,0.0,a-complete-unknown,661539
+brat,Sonic the Hedgehog 3,,0.0,sonic-the-hedgehog-3,939243
+brat,Wallace & Gromit: Vengeance Most Fowl,,0.0,wallace-gromit-vengeance-most-fowl,929204
+brat,Nosferatu,2024.0,0.0,nosferatu-2024,426063
+brat,Paddington in Peru,,0.0,paddington-in-peru,516729
+brat,Wicked,2024.0,0.0,wicked-2024,402431
+brat,Juror #2,,0.0,juror-2,1106739
+brat,Gladiator II,,0.0,gladiator-ii,558449
+brat,Friendship,2024.0,0.0,friendship-2024,1239655
+brat,The Wild Robot,,0.0,the-wild-robot,1184918
+brat,Heretic,2024.0,0.0,heretic-2024,1138194
+brat,The Last Showgirl,,0.0,the-last-showgirl,1235499
+brat,We Live in Time,,0.0,we-live-in-time,1100099
+brat,Queer,2024.0,0.0,queer-2024,1059128
+brat,Conclave,,0.0,conclave,974576
+brat,Flow,2024.0,0.0,flow-2024,608149
+brat,The Substance,,0.0,the-substance,933260
+tototoro,Superman,2025.0,0.0,superman-2025,1061474
+tototoro,28 Years Later,,0.0,28-years-later,1100988
+tototoro,Jurassic World Rebirth,,0.0,jurassic-world-rebirth,1234821
+tototoro,The Phoenician Scheme,,0.0,the-phoenician-scheme,1137350
+tototoro,Mission: Impossible – The Final Reckoning,,0.0,mission-impossible-the-final-reckoning,575265
+tototoro,Sinners,2025.0,0.0,sinners-2025,1233413
+tototoro,Black Bag,2025.0,0.0,black-bag-2025,1233575
+tototoro,The Monkey,2025.0,0.0,the-monkey-2025,1124620
+tototoro,Mickey 17,,0.0,mickey-17,696506
+tototoro,Nosferatu,2024.0,0.0,nosferatu-2024,426063
+tototoro,Paddington in Peru,,0.0,paddington-in-peru,516729
+tototoro,Wicked,2024.0,0.0,wicked-2024,402431
+tototoro,Smile 2,2024.0,0.0,smile-2-2024,1100782
+tototoro,Heretic,2024.0,0.0,heretic-2024,1138194
+tototoro,The Wild Robot,,0.0,the-wild-robot,1184918
+tototoro,Flow,2024.0,0.0,flow-2024,608149
+tototoro,Anora,,0.0,anora,1064213
+tototoro,The Substance,,0.0,the-substance,933260
+sophiedarcy,The Fantastic Four: First Steps,,0.0,the-fantastic-four-first-steps,1516738
+sophiedarcy,How to Train Your Dragon,2025.0,0.0,how-to-train-your-dragon-2025,1087192
+sophiedarcy,Ballerina,2025.0,0.0,ballerina-2025,541671
+sophiedarcy,The Phoenician Scheme,,0.0,the-phoenician-scheme,1137350
+sophiedarcy,Bring Her Back,,0.0,bring-her-back,1151031
+sophiedarcy,Mission: Impossible – The Final Reckoning,,0.0,mission-impossible-the-final-reckoning,575265
+sophiedarcy,Final Destination Bloodlines,,0.0,final-destination-bloodlines,574475
+sophiedarcy,Havoc,2025.0,0.0,havoc-2025,668489
+sophiedarcy,Thunderbolts*,,0.0,thunderbolts,986056
+sophiedarcy,Sinners,2025.0,0.0,sinners-2025,1233413
+sophiedarcy,Warfare,,0.0,warfare,1241436
+sophiedarcy,Novocaine,2025.0,0.0,novocaine-2025,1195506
+sophiedarcy,Black Bag,2025.0,0.0,black-bag-2025,1233575
+sophiedarcy,The Monkey,2025.0,0.0,the-monkey-2025,1124620
+sophiedarcy,Mickey 17,,0.0,mickey-17,696506
+sophiedarcy,Captain America: Brave New World,,0.0,captain-america-brave-new-world,822119
+sophiedarcy,Bridget Jones: Mad About the Boy,,0.0,bridget-jones-mad-about-the-boy,1272149
+sophiedarcy,Opus,2025.0,0.0,opus-2025,1202479
+sophiedarcy,Companion,2025.0,0.0,companion-2025,1084199
+sophiedarcy,A Complete Unknown,,0.0,a-complete-unknown,661539
+sophiedarcy,Wallace & Gromit: Vengeance Most Fowl,,0.0,wallace-gromit-vengeance-most-fowl,929204
+sophiedarcy,Carry-On,2024.0,0.0,carry-on-2024,1005331
+sophiedarcy,Nosferatu,2024.0,0.0,nosferatu-2024,426063
+sophiedarcy,Paddington in Peru,,0.0,paddington-in-peru,516729
+sophiedarcy,Wicked,2024.0,0.0,wicked-2024,402431
+sophiedarcy,Juror #2,,0.0,juror-2,1106739
+sophiedarcy,Gladiator II,,0.0,gladiator-ii,558449
+sophiedarcy,Smile 2,2024.0,0.0,smile-2-2024,1100782
+sophiedarcy,Friendship,2024.0,0.0,friendship-2024,1239655
+sophiedarcy,The Wild Robot,,0.0,the-wild-robot,1184918
+sophiedarcy,Heretic,2024.0,0.0,heretic-2024,1138194
+sophiedarcy,The Last Showgirl,,0.0,the-last-showgirl,1235499
+sophiedarcy,We Live in Time,,0.0,we-live-in-time,1100099
+sophiedarcy,Joker: Folie à Deux,,0.0,joker-folie-a-deux,889737
+sophiedarcy,Queer,2024.0,0.0,queer-2024,1059128
