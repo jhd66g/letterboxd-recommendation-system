@@ -167,8 +167,13 @@ def main():
     print(f"Getting recommendations for '{args.user}'...")
     print("=" * 60)
     
-    # Determine API call size - use 50 if unseen flag to get larger pool
-    api_top_n = 50 if args.unseen else args.top_n
+    # Determine API call size - for unseen, request much larger pool to account for reviewed movies
+    if args.unseen:
+        # For users with many reviews (like schaffrillas with ~1000), request significantly more
+        # to ensure we get enough unseen recommendations after filtering
+        api_top_n = max(500, args.top_n * 20)  # At least 500, or 20x requested amount
+    else:
+        api_top_n = args.top_n
     
     # Get recommendations from API
     recommendations = get_recommendations(args.mode, args.epochs, args.user, api_top_n, get_metadata=True)
