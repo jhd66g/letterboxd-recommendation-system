@@ -15,6 +15,95 @@ This repository provides:
 
 ---
 
+## How to Use
+
+Once all relevant dependencies are downloaded, run the `demo.py` script to get your movie recommendations. The model will output the top **N** recommendations and relevant details for each movie.
+
+```bash
+python demo.py --user USERNAME --top_n N -unseen
+```
+- `USERNAME` = Letterboxd username.
+- `N` = # of recommendations.
+
+**Example use:**
+```bash
+python demo.py --user jaaackd --top_n 3 -unseen
+```
+
+**Example Output**
+```bash
+jaaackd --top_n 3 -unseen
+Getting recommendations for 'jaaackd'...
+============================================================
+
+Top 3 recommendations for 'jaaackd' (unseen only):
+============================================================
+
+ 1. Oppenheimer (2023) - Score: 5.96
+────────────────────────────────────────────────────────────────────────────────
+    Genres:              Drama, History
+    Director(s):         Christopher Nolan
+    Cast:                Cillian Murphy, Emily Blunt, Matt Damon, Robert Downey
+                         Jr., Florence Pugh
+    Language:            en
+    Budget:              $100,000,000
+    Revenue:             $952,000,000
+    Runtime:             181 minutes
+    Overview:            The story of J. Robert Oppenheimer's role in the
+                         development of the atomic bomb during World War II.
+    Streaming:           Peacock Premium, Peacock Premium Plus, Amazon Video,
+                         Apple TV, Google Play Movies, YouTube, Fandango At Home,
+                         Spectrum On Demand
+
+ 2. Challengers (2024) - Score: 5.51
+────────────────────────────────────────────────────────────────────────────────
+    Genres:              Drama, Romance
+    Director(s):         Luca Guadagnino
+    Cast:                Zendaya, Mike Faist, Josh O'Connor, Darnell Appling,
+                         Bryan Doo
+    Language:            en
+    Budget:              $55,000,000
+    Revenue:             $94,182,533
+    Runtime:             132 minutes
+    Overview:            Tennis player turned coach Tashi has taken her husband,
+                         Art, and transformed him into a world-famous Major
+                         champion. To jolt him out of his recent losing streak,
+                         she signs him up for a "Challenger" event — close to the
+                         lowest level of pro tournament — where he finds himself
+                         standing across the net from his former best friend and
+                         Tashi's former boyfriend.
+    Streaming:           Amazon Prime Video, fuboTV, MGM+ Amazon Channel, MGM
+                         Plus Roku Premium Channel, MGM Plus, Philo, Amazon Prime
+                         Video with Ads, Amazon Video, Apple TV, Google Play
+                         Movies, YouTube, Fandango At Home, Spectrum On Demand,
+                         Plex
+
+ 3. May December (2023) - Score: 4.91
+────────────────────────────────────────────────────────────────────────────────
+    Genres:              Drama
+    Director(s):         Todd Haynes
+    Cast:                Natalie Portman, Julianne Moore, Charles Melton, Cory
+                         Michael Smith, Elizabeth Yu
+    Language:            en
+    Budget:              $20,000,000
+    Revenue:             $4,232,370
+    Runtime:             117 minutes
+    Overview:            Twenty years after their notorious tabloid romance
+                         gripped the nation, a married couple buckles under the
+                         pressure when an actress arrives to do research for a
+                         film about their past.
+    Streaming:           Netflix, Netflix Standard with Ads
+
+✅ Demo complete! Showed 3 recommendations.
+```
+
+**Notes**
+- Score value is irrelevant, but the rank matters.
+- Max number of recommendations is limited to 50.
+- More information on how to run the demo script can be found in the **Demo** section.
+
+---
+
 ## Data Considerations
 
 - **Users & Reviews**
@@ -339,9 +428,12 @@ Runs the API for a **single** user and prints a human-readable recommendation re
 **CLI**
 ```bash
 python demo.py --mode MODE --epochs EPOCHS --user USERNAME --top_n N
+python demo.py --mode MODE --epochs EPOCHS --user USERNAME --top_n N -unseen
 ```
 - defaults: `MODE` = `hybrid`, `EPOCHS` = `30`, `TOP_N` = `25`.
 - `USERNAME` is required.
+- if `-unseen` tag is included, it returns the top **N** movies that the user has not seen. 
+  - max **N** for unseen movies is 50.
 
 **Behavior**
 - Internally calls:
@@ -351,7 +443,7 @@ python demo.py --mode MODE --epochs EPOCHS --user USERNAME --top_n N
 - Hides all output from `api.py` and `recommendation_engine.py`. 
 - Prints: 
   - Username
-    - Top N movies with:
+  - Top N movies with:
     - Rank, title, year, predicted score
     - Genres, director(s), cast, original language
     - Budget, revenue, runtime

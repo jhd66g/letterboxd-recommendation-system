@@ -95,11 +95,17 @@ class RecommendationAPI:
         # Map reviews to tmdb_ids based on title and year
         new_reviews_with_tmdb = []
         for _, review in new_reviews_df.iterrows():
-            # Try to match by title and year
-            matches = metadata_df[
-                (metadata_df['title'].str.lower() == review['title'].lower()) &
-                (metadata_df['year'] == review['year'])
-            ]
+            # Try to match by title and year first
+            if pd.notna(review['year']):
+                matches = metadata_df[
+                    (metadata_df['title'].str.lower() == review['title'].lower()) &
+                    (metadata_df['year'] == review['year'])
+                ]
+            else:
+                # If no year, match by title only (take the first match)
+                matches = metadata_df[
+                    metadata_df['title'].str.lower() == review['title'].lower()
+                ]
             
             if not matches.empty:
                 tmdb_id = matches.iloc[0]['tmdb_id']

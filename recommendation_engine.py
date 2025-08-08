@@ -253,7 +253,7 @@ class RecommendationEngine:
         
         logger.info("✅ Model loaded successfully")
         
-    def evaluate_model(self, mode='hybrid', k=10, test_size=0.2):
+    def evaluate_model(self, mode='hybrid', k=25, test_size=0.2):
         """Evaluate model performance on held-out test set."""
         if self.model is None:
             raise ValueError("No trained model available")
