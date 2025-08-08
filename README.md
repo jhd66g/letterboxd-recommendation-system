@@ -162,34 +162,104 @@ A production-grade pipeline that assembles data, trains the hybrid model, and se
 8. **Expose interface**  
    - Wrap the above steps in functions or a CLI flag (`--mode`) so that the engine can be invoked for training, evaluation, or recommendation generation in a repeatable, automated fashion.
 
+**Core Modes**
+- `--mode {hybrid, cf_only, cb_only}` *(default: `hybrid`)*  
+  Selects how item features are constructed:
+  - **hybrid**: combines scaled CB features with a boosted CF identity feature.
+  - **cf_only**: uses only the CF identity feature (ablation).
+  - **cb_only**: uses only metadata features (ablation).
+
+**Actions**
+- `--train`  
+  Train a model for the selected `--mode`. Saves to `models/lightfm_{mode}_{timestamp}.npz`.
+- `--evaluate`  
+  Evaluate the current model for the selected `--mode` and print metrics (Precision@K, Recall@K, NDCG) as JSON.
+- `--recommend USERNAME`  
+  Generate recommendations for the given Letterboxd username.
+
+> You can combine actions, e.g. `--train --evaluate` trains then evaluates.
+
+**I/O Paths**
+- `--reviews_file PATH`  
+  Path to `final_reviews_*.csv`. If omitted, the engine auto-detects the most recent matching file.
+- `--features_file PATH`  
+  Path to `final_features_*.csv`. If omitted, the engine auto-detects the most recent matching file.
+- `--model_file PATH`  
+  Load an existing saved model. If provided, this overrides training unless you explicitly pass `--train`.
+
+**Training Params**
+- `--epochs INT` *(default: `10`)*  
+  Number of training epochs for `--train`.
+
+**Recommendation Params**
+- `--top_n INT` *(default: `25`)*  
+  Number of items to return for `--recommend`.
+
+**Example: train a hybrid model for 30 epochs**
+```bash
+python recommendation_engine.py --mode hybrid --train --epochs 30
+```
 ---
 
 ## API
 
 **File**: `api.py`
 
-A FastAPI service exposing recommendations:
+A FastAPI service that wraps the recommendation engine. It auto-loads the latest `final_reviews_*`, `final_metadata_*`, and `final_features_*` files, loads the latest **hybrid** model if available (otherwise trains one), and **automatically scrapes and adds new users** on first request (quick retrain with a small number of epochs).
 
-- **Dependencies**
 
-  ```bash
-  pip install fastapi uvicorn pandas scipy lightfm
-  ```
+- Takes a `--user` (Letterboxd username) and checks if the user is already in the reviews database.
+- If the user **exists** in the database: reuse data; if `--epochs` is not provided, reuse the most recent model (no training).
+- If the user is **not** in the database: run a modified data pipeline to scrape reviews, map TMDb IDs and years using the metadata CSV, drop reviews not found in metadata, append valid reviews to `final_reviews*.csv`, then (if new data was added) train and recommend.
+- For each recommended TMDb ID, return an object with the display metadata.
 
-- **Endpoints**
+**CLI**
+```bash
+python api.py --mode MODE --epochs EPOCHS --user USERNAME --top_n N 
+```
 
-  ### `GET /recommendations/{username}`
+**Run the server**
+```bash
+uvicorn api:app --host 0.0.0.0 --port 8000
+```
 
-  - **Input**: `username` (Letterboxd handle)
-  - **Behavior**:
-    1. Check user in `data/final_reviews*.csv`.
-    2. If missing, invoke internal pipeline to:
-       - Scrape reviews (`scraper.py`).
-       - Map to TMDb IDs/year using `final_metadata*.csv`.
-       - Append to `final_reviews*.csv`; re-run cleaning and feature assembly.
-    3. Lookup `username`; generate top‑25 recommendations via `recommendation_engine.py` API.
-  - **Response**: JSON array of ranked movie objects:
-    ```json
+**Endpoints**
+- `GET ` — health check
+
+- `GET /user/{username}/status` — returns whether `username` exists in the dataset
+
+- `GET /recommendations/{username}?top_n=25` — returns top-N recommendations
+  - If `username` is **new**: scrapes reviews, matches to TMDb via the latest metadata CSV, appends to `final_reviews_{timestamp}`.csv, reinitializes + quick-retrain the hybrid model to include the new user, then returns recommendations.
+  - If `username` exists: uses the currently loaded model and returns recommendations.
+
+- `GET /recommendations/{username}?top_n=25&epochs=20` - returns topN recommendations with t epochs for training.
+
+**Steps**
+1. Parse `--mode`, `--epochs`, `--user`, `--top_n`.
+
+2. Check if `USERNAME` is present in `final_reviews*.csv`.
+
+3. If not present:
+    - Verify the Letterboxd account exists.
+      - Return error message if not found. 
+    - Scrape reviews for `USERNAME`.
+    - Keep only reviews whose films are present in the metadata CSV.
+    - Append new reviews to `final_reviews*.csv`.
+    - Run:
+    ```bash
+    python recommendation_engine.py --mode MODE --train --epochs EPOCHS --recommend USERNAME --top_n N
+    ```
+
+4. If already present and `--epochs` not provided:
+    - Use the most recent saved model (no `--train`).
+    - Generate recommendations with the latest model.
+
+5. Write results to `data/username_recommendations_top{N}_{timestamp}.json`.
+
+**Output**
+- JSON ordered by predicted score, containing one object per recommended movie with fields.
+- Example: 
+```json
     [
       {
         "rank": 1,
@@ -206,36 +276,87 @@ A FastAPI service exposing recommendations:
         "streaming_services": ["Netflix", "Hulu"],
         "budget": 20000000,
         "revenue": 150000000
-      },
-      ...
+      }
     ]
-    ```
+```
+---
 
-- **Error Handling**
+## Test
 
-  - `404` if user has zero reviews after scraping.
-  - `500` on internal failures, with error message.
+**File**: `test.py`
 
-- **Startup**
+Batch-runs the API for several usernames and reports results; also runs an evaluation pass.
 
+**Usernames**
+- schaffrillas
+- davidehrlich
+- kurstboy
+- jaaackd
+- aidandking08
+
+**CLI**
+```bash
+python test.py --mode MODE
+```
+- default `MODE` = `hybrid`.
+
+**Steps**
+
+1. For each username above, call:
   ```bash
-  uvicorn api:app --reload --host 0.0.0.0 --port 8000
+  python api.py --mode MODE --epochs 10 --user USERNAME --top_n 5
   ```
+
+2. Display, for each username:
+    - Whether the user is in the dataset or newly added.
+    - Top 5 movies (rank, title, year, predicted score).
+    - If the movie has already been reviewed by the user.
+
+3. Run evaluation:
+  ```bash
+  echo "Evaluating for 30 epochs …"
+  python recommendation_engine.py --mode MODE --train --epochs 30 --evaluate
+  ```
+
+4. Display aggregate evaluation metrics.
+
+**Output**
+- Hides all output from `api.py` and `recommendation_engine.py`.
+- Prints:
+  - Username
+  - In-dataset statuses
+  - Top-5 list
+  - Final evaluation metrics
 
 ---
 
-## Testing & Demo
+## Demo
 
-- `test.py`
+**File**: `demo.py`
 
-  - Batch‑tests API for a list of usernames; reports status and top‑10 results.
-  - ADD MORE INFO
+Runs the API for a **single** user and prints a human-readable recommendation report.
 
-- `demo.py`
+**CLI**
+```bash
+python demo.py --mode MODE --epochs EPOCHS --user USERNAME --top_n N
+```
+- defaults: `MODE` = `hybrid`, `EPOCHS` = `30`, `TOP_N` = `25`.
+- `USERNAME` is required.
 
-  - CLI tool for single‑user demo; prints top‑25 recommendations in a readable table.
-  - ADD MORE INFO
-
+**Behavior**
+- Internally calls:
+  ```bash
+  python api.py --mode MODE --epochs EPOCHS --user USERNAME --top_n N
+  ```
+- Hides all output from `api.py` and `recommendation_engine.py`. 
+- Prints: 
+  - Username
+    - Top N movies with:
+    - Rank, title, year, predicted score
+    - Genres, director(s), cast, original language
+    - Budget, revenue, runtime
+    - Overview
+    - Streaming services
 ---
 
 ## Project Structure
